@@ -1,9 +1,9 @@
 package com.PKHS.airbnb.repository;
 
-import com.PKHS.airbnb.model.Customer;
+import com.PKHS.airbnb.model.User;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CustomerRepository extends PagingAndSortingRepository<Customer, Integer> {
+public interface UserRepository extends PagingAndSortingRepository<User, Integer> {
 }

@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "customers")
-public class Customer {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -16,7 +16,7 @@ public class Customer {
     private String address;
     private String gender;
 
-    public Customer() {
+    public User() {
     }
 
     public Integer getId() {
