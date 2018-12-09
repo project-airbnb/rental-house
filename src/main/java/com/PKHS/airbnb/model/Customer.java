@@ -1,7 +1,14 @@
 package com.PKHS.airbnb.model;
 
-public class User {
+import javax.persistence.*;
+
+@Entity
+@Table(name = "customers")
+public class Customer {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
     private String username;
     private String password;
     private String email;
@@ -9,7 +16,7 @@ public class User {
     private String address;
     private String gender;
 
-    public User() {
+    public Customer() {
     }
 
     public Integer getId() {
