@@ -1,10 +1,16 @@
 package com.PKHS.airbnb.service.impl;
 
+import com.PKHS.airbnb.model.Role;
 import com.PKHS.airbnb.model.User;
 import com.PKHS.airbnb.repository.UserRepository;
 import com.PKHS.airbnb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashSet;
+import java.util.Set;
+
 
 @Service
 public class UserServiceImpl implements UserService {

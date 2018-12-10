@@ -10,14 +10,4 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class UserController {
 
-    @Autowired
-    UserService userService;
-
-    @GetMapping("/")
-    public String listUser(Model model) {
-        Iterable<User> users = this.userService.findAll();
-        model.addAttribute("users", users);
-        return "user/list";
-    }
-
 }
