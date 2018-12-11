@@ -23,12 +23,19 @@ public class LoginController {
 
     @PostMapping("/login")
     public String checkLogin(@ModelAttribute("user") User user) {
-
+        if (user.getUsername().equals("admin") && user.getPassword().equals("123456")){
+            return "redirect:/admin";
+        }
         return "redirect:/";
     }
 
     @GetMapping("/")
     public String home() {
         return "home/index";
+    }
+
+    @GetMapping("/admin")
+    public String home_admin() {
+        return "home/admin";
     }
 }
