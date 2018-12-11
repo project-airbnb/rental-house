@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class LoginController {
@@ -19,20 +20,13 @@ public class LoginController {
         return "home/login";
     }
 
-
-    @GetMapping("/admin")
-    public String admin() {
-        return "home/admin";
-    }
-
-    @GetMapping("/403")
-    public String accessDenid() {
-        return "errors-403";
+    @PostMapping("/login")
+    public String checkLogin() {
+        return "redirect:/";
     }
 
     @GetMapping("/")
-    public String index() {
+    public String home() {
         return "home/index";
     }
-
 }
