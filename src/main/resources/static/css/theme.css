@@ -6,7 +6,7 @@
     height: 300px;
 }
 .bg-overlay {
-    background: linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)), url('templates/css/photo-1416331108676-a22ccb276e35.jpeg');
+    background: linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)), url('../anh1.jpeg');
     background-repeat: no-repeat;
     background-size: cover;
     color: #fff;

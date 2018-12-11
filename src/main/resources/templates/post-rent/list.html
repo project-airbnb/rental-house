@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
 </head>
 <body>
 <th:block th:each="post : ${postRents}">
     <p th:text="${post.title}"></p>
+    <p th:text="${post.content}"></p>
 </th:block>
 </body>
 </html>

@@ -38,4 +38,9 @@ public class LoginController {
     public String home_admin() {
         return "home/admin";
     }
+
+    @GetMapping("/errors-403")
+    public String errors() {
+        return "errors-403";
+    }
 }
