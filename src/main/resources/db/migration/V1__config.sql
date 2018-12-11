@@ -1,0 +1,6 @@
+use airbnb;
+ALTER DATABASE aribnb CHARACTER SET utf8 COLLATE utf8_unicode_ci ;
+ALTER TABLE users CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+ALTER TABLE categories CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+ALTER TABLE rents CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+ALTER TABLE role CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;

@@ -56,7 +56,7 @@ public class PostRentController {
         return "post-rent/add";
     }
 
-    @PostMapping("/add-post-rent")
+    @PostMapping("/add-post-rent-new")
     public String savePost(@ModelAttribute("post") PostRent post, RedirectAttributes attributes) {
         this.postRentService.save(post);
         attributes.addFlashAttribute("message", "Create post successfull");
