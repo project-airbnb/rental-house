@@ -1,15 +1,11 @@
 package com.PKHS.airbnb.service.impl;
-
-import com.PKHS.airbnb.model.Role;
 import com.PKHS.airbnb.model.User;
 import com.PKHS.airbnb.repository.UserRepository;
 import com.PKHS.airbnb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.HashSet;
-import java.util.Set;
 
 
 @Service
@@ -18,23 +14,31 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Override
-    public Iterable<User> findAll() {
-        return this.userRepository.findAll();
-    }
 
     @Override
-    public User findById(Integer id) {
-        return this.userRepository.findById(id).get();
+    public Page<User> fillAll(Pageable pageable) {
+        return userRepository.findAll(pageable);
     }
 
     @Override
     public void save(User user) {
-        this.userRepository.save(user);
+        userRepository.save(user);
+
     }
 
     @Override
     public void remove(Integer id) {
-        this.userRepository.deleteById(id);
+        userRepository.deleteById(id);
+
+    }
+
+    @Override
+    public User findById(Integer id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Page<User> findByName(String name, Pageable pageable) {
+        return userRepository.findAllByUsernameContaining(name,pageable);
     }
 }
