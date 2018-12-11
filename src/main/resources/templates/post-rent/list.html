@@ -5,6 +5,8 @@
     <title>Title</title>
 </head>
 <body>
-
+<th:block th:each="post : ${postRents}">
+    <p th:text="${post.title}"></p>
+</th:block>
 </body>
 </html>
