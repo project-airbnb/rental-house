@@ -4,6 +4,8 @@ import com.PKHS.airbnb.model.NewsRent;
 import com.PKHS.airbnb.repository.NewsRentRepository;
 import com.PKHS.airbnb.service.NewsRentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,22 +15,14 @@ public class NewsRentServiceImpl implements NewsRentService {
     NewsRentRepository newsRentRepository;
 
     @Override
-    public Iterable<NewsRent> findAll() {
-        return this.newsRentRepository.findAll();
+    public Page<NewsRent> findAll(Pageable pageable) {
+        return newsRentRepository.findAll(pageable);
     }
 
     @Override
-    public NewsRent findById(Integer id) {
-        return this.newsRentRepository.findById(id).get();
+    public Page<NewsRent> findAllByTitleContaining(String title, Pageable pageable) {
+        return newsRentRepository.findAllByTitleContaining(title, pageable);
     }
 
-    @Override
-    public void save(NewsRent news) {
-        this.newsRentRepository.save(news);
-    }
 
-    @Override
-    public void remove(Integer id) {
-        this.newsRentRepository.deleteById(id);
-    }
 }

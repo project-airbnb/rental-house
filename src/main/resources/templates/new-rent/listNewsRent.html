@@ -2,10 +2,32 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>News Rent</title>
 </head>
 <body>
 <h1>My new rent</h1>
-<h2>Hello</h2>
+<form border="1">
+    Search by title:
+    <input type="text" name="s">
+    <input type="submit" value="Search"/>
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Content</th>
+        </tr>
+
+        <th:block th:each="newsRent : ${newsRents}">
+            <tr>
+                <td th:text="${newsRent.title}"></td>
+                <td th:text="${newsRent.content}"></td>
+            </tr>
+        </th:block>
+    </table>
+    <div>
+        <a th:href="@{'/newsRents'(page=${newsRents.number - 1})}" th:if="${newsRents.hasPrevious()}">Previous</a>
+        <span th:text="${newsRents.number + 1}"></span>/<span th:text="${newsRents.totalPages}"></span>
+        <a th:href="@{'/newsRents'(page=${newsRents.number + 1})}" th:if="${newsRents.hasNext()}">Next</a>
+    </div>
+</form>
 </body>
 </html>
