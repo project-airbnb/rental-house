@@ -16,7 +16,7 @@ import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/")
 public class UserController {
 
 
@@ -37,7 +37,7 @@ public class UserController {
     }
     @GetMapping("/delete/{id}")
     public ModelAndView viewDelete(@PathVariable("id") Integer id,User user) {
-        ModelAndView modelAndView=new ModelAndView("delete");
+        ModelAndView modelAndView=new ModelAndView("user/delete");
         modelAndView.addObject("user",userService.findById(id));
         return modelAndView;
     }
@@ -46,12 +46,12 @@ public class UserController {
         user=userService.findById(id);
         if(user !=null) {
             userService.remove(id);
-            ModelAndView modelAndView=new ModelAndView("delete");
+            ModelAndView modelAndView=new ModelAndView("user/delete");
             modelAndView.addObject("delete","delete successfully");
             return modelAndView;
         }else {
             ModelAndView modelAndView= new ModelAndView("delete");
-            modelAndView.addObject("delete","Not User delete..");
+            modelAndView.addObject("message","Not User delete..");
             return modelAndView;
         }
     }
