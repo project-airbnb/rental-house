@@ -3,19 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>View</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+     <!--Latest compiled and minified JavaScript -->
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 </head>
 <br>
-<h1>List user</h1>
+<h1 class="text-center">List user</h1>
+<div class="container">
 <form>
-    <table border="1">
+    <div class="col-md-6">
+    <form  class="search-form">
         <tr>
-            <td>Search</td>
-            <td><input value="name" name="s" type="text"></td>
-            <td> <input type="submit" value="Click"></td>
+            <td><input class="form-control" value="name" name="s" type="text"></td>
+            <!--<td> <input type="submit" value="Click"></td>-->
+            <td><button class="btn btn-link search-btn"> <i class="glyphicon glyphicon-search"></i>
+            </button></td>
         </tr>
-    </table>
+    </form>
+    </div>
 </form></br>
-<table border="1" th:object="${users}">
+<table border="1" class="table table-striped" th:object="${users}">
     <tr>
        <td>ID</td>
        <td>Password</td>
@@ -25,6 +35,8 @@
        <td>Address</td>
        <td>Gender</td>
        <td>Level-Type</td>
+       <td>Delete</td>
+       <td>Edit</td>
     </tr>
     <th:block th:each="user: ${users}">
         <tr>
@@ -36,7 +48,8 @@
             <td th:text="${user.address}"></td>
             <td th:text="${user.gender}"></td>
             <td th:text="${user.level_type}"></td>
-            <td><a th:href="@{/delete/__${user.id}__}">Delete</a></td>
+            <td><button class="btn btn-danger" style="background: blue"><a th:href="@{/delete/__${user.id}__}">Delete</a></button></td>
+            <td><button class="btn btn-danger" style="background: red"><a th:href="@{/edit/__${user.id}__}">Edit</a></button></td>
         </tr>
     </th:block>
 </table>
@@ -44,6 +57,7 @@
     <a th:href="@{'/'(page=${users.number - 1})}" th:if="${users.hasPrevious()}">Previous</a>
     <span th:text="${users.number + 1}"></span>/<span th:text="${users.totalPages}"></span>
     <a th:href="@{'/'(page=${users.number + 1})}" th:if="${users.hasNext()}">Next</a>
+</div>
 </div>
 
 </body>
