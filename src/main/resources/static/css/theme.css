@@ -1,0 +1,16 @@
+.picture{
+    width: 10%;
+}
+.recommended-pic {
+    width: 1200px;
+    height: 300px;
+}
+.bg-overlay {
+    background: linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)), url('anh1.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #fff;
+    height: 800px;
+    justify-content: flex-start;
+    align-items: flex-start;
+}

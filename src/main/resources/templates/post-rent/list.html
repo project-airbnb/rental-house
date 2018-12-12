@@ -3,8 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-
+<div th:if="${message}">
+    <p th:text="${message}"></p>
+</div>
+<a href="/post/add-post-rent">add post</a>
+<th:block th:each="post : ${postRents}">
+    <div th:text="${post.title}"></div>
+    <a th:href="@{/post/edit-post-rent/__${post.id}__}">Edit</a> |
+    <a th:href="@{/post/delete-post-rent/__${post.id}__}" onclick="return confirm('delete now?')">Delete</a>
+    <div th:text="${post.content}"></div>
+</th:block>
 </body>
 </html>
