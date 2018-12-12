@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View</title>
+</head>
+<br>
+<h1>List user</h1>
+<form>
+    <table border="1">
+        <tr>
+            <td>Search</td>
+            <td><input value="name" name="s" type="text"></td>
+            <td> <input type="submit" value="Click"></td>
+        </tr>
+    </table>
+</form></br>
+<table border="1" th:object="${users}">
+    <tr>
+       <td>ID</td>
+       <td>Password</td>
+       <td>UserName</td>
+       <td>Email</td>
+       <td>Phone</td>
+       <td>Address</td>
+       <td>Gender</td>
+       <td>Level-Type</td>
+    </tr>
+    <th:block th:each="user: ${users}">
+        <tr>
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.password}"></td>
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.phone}"></td>
+            <td th:text="${user.address}"></td>
+            <td th:text="${user.gender}"></td>
+            <td th:text="${user.level_type}"></td>
+            <td><a th:href="@{/delete/__${user.id}__}">Delete</a></td>
+        </tr>
+    </th:block>
+</table>
+<div>
+    <a th:href="@{'/'(page=${users.number - 1})}" th:if="${users.hasPrevious()}">Previous</a>
+    <span th:text="${users.number + 1}"></span>/<span th:text="${users.totalPages}"></span>
+    <a th:href="@{'/'(page=${users.number + 1})}" th:if="${users.hasNext()}">Next</a>
+</div>
+
+</body>
+</html>
