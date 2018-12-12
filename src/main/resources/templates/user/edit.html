@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <!--Latest compiled and minified JavaScript -->
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<h1 class="text-center" style="color: red">Edit User</h1>
+<th:block th:if="${message}">
+    <h2 style="text-align: center" th:text="${message}"></h2>
+</th:block>
+<div class="container" style="margin-left: 600px">
+<form th:action="@{/edit}" th:object="${user}" method="post">
+    <input th:type="hidden" name="id" th:field="*{id}">
+    <table>
+            <tr>
+                <td>Password:</td>
+                <td><input  class="form-control" type="text" th:field="*{password}"></td>
+            </tr>
+            <tr>
+                <td>Username:</td>
+                <td><input class="form-control" type="text" th:field="*{username}"></td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td><input class="form-control" type="text" th:field="*{email}"></td>
+            </tr>
+            <tr>
+                <td>Phone:</td>
+                <td ><input class="form-control" type="text" th:field="*{phone}"></td>
+            </tr>
+            <tr>
+                <td>Address:</td>
+                <td><input class="form-control" type="text" th:field="*{address}"></td>
+            </tr>
+            <tr>
+                <td>Gender:</td>
+                <td><input class="form-control" type="text" th:field="*{gender}"></td>
+            </tr>
+            <tr>
+                <td>Level_type:</td>
+                <td><input class="form-control" type="text" th:field="*{level_type}"></td>
+            </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Update"></td>
+        </tr>
+    </table>
+</form>
+<a th:href="@{/}">Back to View</a>
+</div>
+</body>
+</html>

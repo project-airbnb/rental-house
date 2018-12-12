@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete</title>
+</head>
+<body>
+<th:block th:if="${message}">
+    <p th:text="${message}"></p>
+</th:block>
+<h1>Delete User</h1>
+<form th:action="@{/delete}" th:object="${user}" method="post">
+    <input th:type="hidden" name="id" th:field="*{id}">
+    <table>
+        <tr>
+            <td>Password:</td>
+            <td th:text="${user.password}"></td>
+        </tr>
+        <tr>
+            <td>Username:</td>
+            <td th:text="${user.username}"></td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td th:text="${user.email}"></td>
+        </tr>
+        <tr>
+            <td>Phone:</td>
+            <td th:text="${user.phone}"></td>
+        </tr>
+        <tr>
+            <td>Address:</td>
+            <td th:text="${user.address}"></td>
+        </tr>
+        <tr>
+            <td>Gender:</td>
+            <td th:text="${user.gender}"></td>
+        </tr>
+        <tr>
+            <td>Level_type:</td>
+            <td th:text="${user.level_type}"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Delete"></td>
+        </tr>
+
+    </table>
+</form>
+<a th:href="@{/}">Back to View</a>
+</body>
+</html>
