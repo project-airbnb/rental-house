@@ -57,13 +57,13 @@ public class UserController {
     }
     @GetMapping("/edit/{id}")
     public ModelAndView viewEdit(@PathVariable("id") Integer id, User user){
-        ModelAndView modelAndView= new ModelAndView("edit");
+        ModelAndView modelAndView= new ModelAndView("user/edit");
         modelAndView.addObject("user",userService.findById(id));
         return modelAndView;
     }
     @PostMapping("/edit")
     public ModelAndView editUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult) {
-        ModelAndView modelAndView= new ModelAndView("edit");
+        ModelAndView modelAndView= new ModelAndView("user/edit");
         if(bindingResult.hasFieldErrors()) {
             return modelAndView;
         }else {
