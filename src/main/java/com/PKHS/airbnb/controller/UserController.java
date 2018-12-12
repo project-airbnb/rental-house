@@ -16,7 +16,7 @@ import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("user")
 public class UserController {
 
 
@@ -24,51 +24,55 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public ModelAndView viewHome(@RequestParam("s") Optional<String> s,@PageableDefault(size=5) Pageable pageable) {
+    public ModelAndView viewHome(@RequestParam("s") Optional<String> s, @PageableDefault(size = 5) Pageable pageable) {
         Page<User> users;
-        if(s.isPresent()) {
-            users = userService.findByName(s.get(),pageable);
-        }else {
-            users= userService.fillAll(pageable);
+        if (s.isPresent()) {
+            users = userService.findByName(s.get(), pageable);
+        } else {
+            users = userService.fillAll(pageable);
         }
-        ModelAndView modelAndView= new ModelAndView("user/view");
-        modelAndView.addObject("users",users);
+        ModelAndView modelAndView = new ModelAndView("user/view");
+        modelAndView.addObject("users", users);
         return modelAndView;
     }
+
     @GetMapping("/delete/{id}")
-    public ModelAndView viewDelete(@PathVariable("id") Integer id,User user) {
-        ModelAndView modelAndView=new ModelAndView("user/delete");
-        modelAndView.addObject("user",userService.findById(id));
+    public ModelAndView viewDelete(@PathVariable("id") Integer id, User user) {
+        ModelAndView modelAndView = new ModelAndView("user/delete");
+        modelAndView.addObject("user", userService.findById(id));
         return modelAndView;
     }
-   @PostMapping("/delete")
-    public ModelAndView deleteUser(@RequestParam Integer id,User user) {
-        user=userService.findById(id);
-        if(user !=null) {
+
+    @PostMapping("/delete")
+    public ModelAndView deleteUser(@RequestParam Integer id, User user) {
+        user = userService.findById(id);
+        if (user != null) {
             userService.remove(id);
-            ModelAndView modelAndView=new ModelAndView("user/delete");
-            modelAndView.addObject("delete","delete successfully");
+            ModelAndView modelAndView = new ModelAndView("user/delete");
+            modelAndView.addObject("delete", "delete successfully");
             return modelAndView;
-        }else {
-            ModelAndView modelAndView= new ModelAndView("delete");
-            modelAndView.addObject("message","Not User delete..");
+        } else {
+            ModelAndView modelAndView = new ModelAndView("delete");
+            modelAndView.addObject("message", "Not User delete..");
             return modelAndView;
         }
     }
+
     @GetMapping("/edit/{id}")
-    public ModelAndView viewEdit(@PathVariable("id") Integer id, User user){
-        ModelAndView modelAndView= new ModelAndView("user/edit");
-        modelAndView.addObject("user",userService.findById(id));
+    public ModelAndView viewEdit(@PathVariable("id") Integer id, User user) {
+        ModelAndView modelAndView = new ModelAndView("user/edit");
+        modelAndView.addObject("user", userService.findById(id));
         return modelAndView;
     }
+
     @PostMapping("/edit")
     public ModelAndView editUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult) {
-        ModelAndView modelAndView= new ModelAndView("user/edit");
-        if(bindingResult.hasFieldErrors()) {
+        ModelAndView modelAndView = new ModelAndView("user/edit");
+        if (bindingResult.hasFieldErrors()) {
             return modelAndView;
-        }else {
+        } else {
             userService.save(user);
-            modelAndView.addObject("message","user updated successfully");
+            modelAndView.addObject("message", "user updated successfully");
             return modelAndView;
         }
     }
