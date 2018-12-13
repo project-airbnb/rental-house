@@ -1,6 +1,8 @@
 package com.PKHS.airbnb.controller;
 
+import com.PKHS.airbnb.model.Category;
 import com.PKHS.airbnb.model.PostRent;
+import com.PKHS.airbnb.service.CategoryService;
 import com.PKHS.airbnb.service.PostRentService;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +17,25 @@ public class PostRentController {
     @Autowired
     private PostRentService postRentService;
 
+    @Autowired
+    private CategoryService categoryService;
+
+    @ModelAttribute("categories")
+    public Iterable<Category> categories() {
+        return this.categoryService.findAll();
+    }
+
     @GetMapping
-    public String PostController(Model model) {
+    public String listPostRents(Model model) {
         Iterable<PostRent> postRents = this.postRentService.findAll();
         model.addAttribute("postRents", postRents);
+        return "post-rent/list";
+    }
+
+    @GetMapping("/view-post/{id}")
+    public String viewPostRent(@PathVariable("id") int id, Model model) {
+        PostRent postRent = this.postRentService.findById(id);
+        model.addAttribute("postRents", postRent);
         return "post-rent/list";
     }
 
