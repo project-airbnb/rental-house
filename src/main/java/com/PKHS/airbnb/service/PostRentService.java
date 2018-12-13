@@ -10,4 +10,6 @@ public interface PostRentService {
     void save(PostRent post);
 
     void remove(Integer id);
+
+    Iterable<PostRent> findAllByUserId(Iterable<Integer> ids);
 }

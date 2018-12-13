@@ -16,6 +16,10 @@ public class PostRent {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     private String title;
     private String content;
     private Boolean status;
@@ -70,5 +74,13 @@ public class PostRent {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

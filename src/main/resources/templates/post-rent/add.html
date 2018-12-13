@@ -27,11 +27,21 @@
                     th:text="${cate.getName()}"></option>
         </select>
     </div>
+    <div>
+        <label>User</label>
+        <select th:field="*{user}" id="user">
+            <option value="1">Select user</option>
+            <option th:each="user : ${users}"
+                    th:value="${user.getId()}"
+                    th:text="${user.getUsername()}"></option>
+        </select>
+    </div>
+    </div>
     <div class="">
         <label >status</label>
-        <input type="radio" name="status" th:field="*{status}" value=true th:checked="${'checked'}"> Con trong
-        <input type="radio" name="status" th:field="*{status}" value=false> Het Phong
-    </div>  
+        <input type="radio" name="status" th:field="*{status}" value="true" checked > Con trong
+        <input type="radio" name="status" th:field="*{status}" value="false"> Het Phong
+    </div>
     <div>
         <input type="submit" class="btn btn-info" value="Post News">
     </div>
