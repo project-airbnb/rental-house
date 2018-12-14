@@ -5,8 +5,7 @@ create table images(
   link NVARCHAR(512) NOT NULL
 );
 create table image_rent(
-  image_id(25) NOT NULL ,
-  rent_id(20) NOT NULL ,
-  PRIMARY KEY (image_id, rent_id),
-  ENGINE=InnoDB DEFAULT CHARSET=utf8
-);
+  image_id int(25) NOT NULL ,
+  rent_id int(20) NOT NULL ,
+  PRIMARY KEY (image_id, rent_id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
