@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List category</title>
+</head>
+<body>
+<h1>List category</h1>
+<th:block th:if="${message}">
+    <p th:text="${message}"></p>
+</th:block>
+<a href="/category/create-category">Create new category</a>
+<table>
+    <tr>
+        <td>Name</td>
+        <td>Edit</td>
+        <td>Delete</td>
+    </tr>
+    <tr th:each="category : ${categories}">
+        <td th:text="${category.name}"></td>
+        <td><a th:href="@{/category/edit-category/__${category.id}__}">Edit</a></td>
+        <td><a th:href="@{/category/delete-category/__${category.id}__}" onclick="return confirm('Do you delete?')">Delete</a></td>
+    </tr>
+</table>
+</body>
+</html>

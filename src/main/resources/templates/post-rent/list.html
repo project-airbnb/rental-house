@@ -6,9 +6,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div th:if="${message}">
-    <p th:text="${message}"></p>
-</div>
+<!--<div th:if="${message}">-->
+    <!--<p th:text="${message}"></p>-->
+<!--</div>-->
 <a href="/post/add-post-rent">add post</a>
 <th:block th:each="post : ${postRents}">
     <div th:text="${post.title}"></div>
