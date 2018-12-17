@@ -14,8 +14,8 @@ public class Category {
     private Integer id;
     private String name;
 
-    @OneToMany(targetEntity = PostRent.class)
-    private List<PostRent> posts;
+    @OneToMany(targetEntity = RentalHouse.class)
+    private List<RentalHouse> posts;
 
     public Category() {
     }
@@ -40,11 +40,11 @@ public class Category {
         this.name = name;
     }
 
-    public List<PostRent> getPosts() {
+    public List<RentalHouse> getPosts() {
         return posts;
     }
 
-    public void setPosts(List<PostRent> posts) {
+    public void setPosts(List<RentalHouse> posts) {
         this.posts = posts;
     }
 }

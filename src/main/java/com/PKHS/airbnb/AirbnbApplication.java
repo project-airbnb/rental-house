@@ -1,6 +1,6 @@
 package com.PKHS.airbnb;
 
-import com.PKHS.airbnb.controller.PostRentController;
+import com.PKHS.airbnb.controller.HostRentalHouseController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -10,7 +10,7 @@ import java.io.File;
 public class AirbnbApplication {
 
     public static void main(String[] args)  {
-        new File(PostRentController.uploadDirectory).mkdir();
+        new File(HostRentalHouseController.uploadDirectory).mkdir();
         SpringApplication.run(AirbnbApplication.class, args);
     }
 

@@ -1,10 +1,6 @@
 package com.PKHS.airbnb.model;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "images")
@@ -17,7 +13,7 @@ public class Image {
 
     @ManyToOne
     @JoinColumn(name = "rent_id")
-    private PostRent post;
+    private RentalHouse post;
 
     public Image() {
     }
@@ -27,7 +23,7 @@ public class Image {
         this.link = link;
     }
 
-    public Image(String name, String link, PostRent post) {
+    public Image(String name, String link, RentalHouse post) {
         this.name = name;
         this.link = link;
         this.post = post;
@@ -57,11 +53,11 @@ public class Image {
         this.link = link;
     }
 
-    public PostRent getPost() {
+    public RentalHouse getPost() {
         return post;
     }
 
-    public void setPost(PostRent post) {
+    public void setPost(RentalHouse post) {
         this.post = post;
     }
 }

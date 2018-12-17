@@ -3,7 +3,6 @@ package com.PKHS.airbnb.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -12,8 +11,8 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @OneToMany(targetEntity = PostRent.class)
-    private List<PostRent> posts;
+    @OneToMany(targetEntity = RentalHouse.class)
+    private List<RentalHouse> posts;
 
     private String username;
     private String password;
@@ -90,11 +89,11 @@ public class User implements Serializable {
         this.level_type = level_type;
     }
 
-    public List<PostRent> getPosts() {
+    public List<RentalHouse> getPosts() {
         return posts;
     }
 
-    public void setPosts(List<PostRent> posts) {
+    public void setPosts(List<RentalHouse> posts) {
         this.posts = posts;
     }
 }
