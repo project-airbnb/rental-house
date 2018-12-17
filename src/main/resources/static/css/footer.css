@@ -1,0 +1,16 @@
+.list-unstyled a:hover{
+    text-decoration: none;
+    color: green;
+}
+.img{
+    float: left;
+}
+.news{
+    clear: left;
+}
+.pagination{
+    text-align: center;
+}
+.txt{
+    margin-left: 10px;
+}

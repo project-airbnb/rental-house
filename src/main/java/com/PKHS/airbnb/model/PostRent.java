@@ -30,6 +30,7 @@ public class PostRent {
     private Boolean status;
     private Date datetime;
 
+
     public PostRent() {
     }
 
