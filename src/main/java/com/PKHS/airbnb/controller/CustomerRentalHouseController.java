@@ -17,6 +17,7 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/house")
 public class CustomerRentalHouseController {
+
     @Autowired
     private CustomerRentalHouseService customerRentalHouseService;
 

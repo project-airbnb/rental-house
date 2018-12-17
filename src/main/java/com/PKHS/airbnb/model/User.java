@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,9 +18,10 @@ public class User implements Serializable {
     private String password;
     private String email;
     private String phone;
+    private String province;
+    private int age;
     private String address;
-    private String gender;
-    private Integer level_type;
+    private boolean gender;
 
     public User() {
     }
@@ -31,6 +32,14 @@ public class User implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public List<RentalHouse> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<RentalHouse> posts) {
+        this.posts = posts;
     }
 
     public String getUsername() {
@@ -65,6 +74,22 @@ public class User implements Serializable {
         this.phone = phone;
     }
 
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
     public String getAddress() {
         return address;
     }
@@ -73,27 +98,11 @@ public class User implements Serializable {
         this.address = address;
     }
 
-    public String getGender() {
+    public boolean isGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(boolean gender) {
         this.gender = gender;
-    }
-
-    public Integer getLevel_type() {
-        return level_type;
-    }
-
-    public void setLevel_type(Integer level_type) {
-        this.level_type = level_type;
-    }
-
-    public List<RentalHouse> getPosts() {
-        return posts;
-    }
-
-    public void setPosts(List<RentalHouse> posts) {
-        this.posts = posts;
     }
 }

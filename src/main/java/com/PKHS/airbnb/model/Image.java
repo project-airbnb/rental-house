@@ -3,16 +3,17 @@ package com.PKHS.airbnb.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "images")
+@Table(name = "image_house")
 public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String name;
     private String link;
+    private String alt;
 
     @ManyToOne
-    @JoinColumn(name = "rent_id")
+    @JoinColumn(name = "rental_house_id")
     private RentalHouse post;
 
     public Image() {
@@ -26,6 +27,13 @@ public class Image {
     public Image(String name, String link, RentalHouse post) {
         this.name = name;
         this.link = link;
+        this.post = post;
+    }
+
+    public Image(String name, String link, String alt, RentalHouse post) {
+        this.name = name;
+        this.link = link;
+        this.alt = alt;
         this.post = post;
     }
 
@@ -59,5 +67,13 @@ public class Image {
 
     public void setPost(RentalHouse post) {
         this.post = post;
+    }
+
+    public String getAlt() {
+        return alt;
+    }
+
+    public void setAlt(String alt) {
+        this.alt = alt;
     }
 }

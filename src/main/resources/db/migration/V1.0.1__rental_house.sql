@@ -16,8 +16,8 @@ create table rental_house
   address          NVARCHAR(512),
   featured         NVARCHAR(255),
   house_area       INT(255),
-  FOREIGN KEY (user_id) REFERENCES users (id),
-  FOREIGN KEY (category_id) REFERENCES categories (id)
+  FOREIGN KEY (user_id) REFERENCES user (id),
+  FOREIGN KEY (category_id) REFERENCES category(id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
