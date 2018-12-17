@@ -12,7 +12,7 @@
 
 <body>
 <div class="container">
-    <form method="post" th:action="@{/post/edit-post-rent}" th:object="${post}">
+    <form method="post" th:action="@{/post/edit-post-rent}" enctype="multipart/form-data" th:object="${post}">
 
         <div class="col-sd-6">
             <input type="hidden" th:field="*{id}">
@@ -22,7 +22,7 @@
             </div>
             <div class="">
                 <label for="content">content</label>
-                <textarea name="" id="content" cols="30" rows="10" th:field="*{content}"></textarea>
+                <textarea name="" id="content" cols="30" rows="10" th:field="*{description}"></textarea>
             </div>
             <div>
                 <label>Category</label>
@@ -33,6 +33,20 @@
                             th:text="${cate.getName()}"
                             th:selected="(${cate.id} == *{category.id})"></option>
                 </select>
+            </div>
+
+            <div>
+                <label>User</label>
+                <select th:field="*{user}" id="user">
+                    <option value="1">Select user</option>
+                    <option th:each="u : ${users}"
+                            th:value="${u.getId()}"
+                            th:text="${u.getUsername()}"
+                            th:selected="(${u.id} == *{user.id})"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="file" name="files" multiple>
             </div>
             <div class="">
                 <label>status</label>

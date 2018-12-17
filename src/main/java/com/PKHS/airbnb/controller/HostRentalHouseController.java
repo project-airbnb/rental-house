@@ -53,14 +53,14 @@ public class HostRentalHouseController {
     public String listPostRents(Model model) {
         Iterable<RentalHouse> postRents = this.postRentService.findAll();
         model.addAttribute("postRents", postRents);
-        return "post-rent/list";
+        return "host_rental_house/list";
     }
 
     @GetMapping("/view-post/{id}")
     public String viewPostRent(@PathVariable("id") int id, Model model) {
         RentalHouse rentalHouse = this.postRentService.findById(id);
         model.addAttribute("postRent", rentalHouse);
-        return "post-rent/view-post";
+        return "host_rental_house/view-post";
     }
 
     @GetMapping("/delete-post-rent/{id}")
@@ -78,7 +78,7 @@ public class HostRentalHouseController {
         RentalHouse post = this.postRentService.findById(id);
         if (post != null) {
             model.addAttribute("post", post);
-            return "post-rent/edit";
+            return "host_rental_house/edit";
         }
         return "errors-403";
     }
@@ -95,7 +95,7 @@ public class HostRentalHouseController {
     public String addPost(Model model) {
         RentalHouse post = new RentalHouse();
         model.addAttribute("post", post);
-        return "post-rent/add";
+        return "host_rental_house/add";
     }
 
     @PostMapping("/add-post-rent-new")

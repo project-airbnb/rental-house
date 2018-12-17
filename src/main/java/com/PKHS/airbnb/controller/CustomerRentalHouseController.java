@@ -29,7 +29,7 @@ public class CustomerRentalHouseController {
         } else {
             houses = customerRentalHouseService.findAll(pageable);
         }
-        ModelAndView modelAndView = new ModelAndView("house/list");
+        ModelAndView modelAndView = new ModelAndView("customer_rental_house/list");
         modelAndView.addObject("houses", houses);
         return modelAndView;
     }
@@ -37,7 +37,7 @@ public class CustomerRentalHouseController {
     @GetMapping("/detail/{id}")
     public ModelAndView showHouseDetail(@PathVariable Integer id) {
         RentalHouse house = customerRentalHouseService.findById(id);
-        ModelAndView modelAndView = new ModelAndView("house/viewDetail");
+        ModelAndView modelAndView = new ModelAndView("customer_rental_house/viewDetail");
         modelAndView.addObject("house", house);
         return modelAndView;
     }
