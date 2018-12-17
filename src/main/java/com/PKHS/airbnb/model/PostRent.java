@@ -12,11 +12,18 @@ public class PostRent {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     private String title;
     private String content;
     private Boolean status;
     private Date datetime;
-
 
     public PostRent() {
     }
@@ -59,5 +66,21 @@ public class PostRent {
 
     public void setDatetime(Date datetime) {
         this.datetime = datetime;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

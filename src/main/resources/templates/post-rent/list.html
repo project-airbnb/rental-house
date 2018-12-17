@@ -9,12 +9,12 @@
 <!--<div th:if="${message}">-->
     <!--<p th:text="${message}"></p>-->
 <!--</div>-->
-<a href="/post/add-post-rent">add post</a>
-<th:block th:each="post : ${postRents}">
-    <div th:text="${post.title}"></div>
-    <a th:href="@{/post/edit-post-rent/__${post.id}__}">Edit</a> |
-    <a th:href="@{/post/delete-post-rent/__${post.id}__}" onclick="return confirm('delete now?')">Delete</a>
-    <div th:text="${post.content}"></div>
-</th:block>
+<!--<a href="/post/add-post-rent">add post</a><br>-->
+<!--<th:block th:each="post : ${postRents}">-->
+    <!--<a th:href="@{/post/view-post/__${post.id}__}" th:text="${post.title}"></a> <br>-->
+    <!--<img src="https://static123.com/phongtro123/uploads/images/thumbs/900x600/fit/2018/12/05/585f2a45dec63f9866d7_1543985831.jpg" alt="" width="80px" height="80px"><br>-->
+    <!--<a th:href="@{/post/edit-post-rent/__${post.id}__}">Edit</a> |-->
+    <!--<a th:href="@{/post/delete-post-rent/__${post.id}__}" onclick="return confirm('delete now?')">Delete</a>-->
+<!--</th:block>-->
 </body>
 </html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <!--Latest compiled and minified JavaScript -->
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+</head>
+<br>
+<div class="container">
+    <h2 th:text="${postRent.title}"></h2>
+    Category: <a th:href="@{/post/__${postRent.category.getName()}__}" th:text="${postRent.category.getName()}"></a><br>
+    User: <a th:href="@{/__${postRent.user.getUsername()}__}" th:text="${postRent.user.getUsername()}"></a><br>
+
+    <p th:text="${postRent.content}"></p>
+</div>
+
+</body>
+</html>

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PostRentServiceImpl implements PostRentService {
     @Autowired
-    PostRentRepository postRentRepository;
+    private PostRentRepository postRentRepository;
 
     @Override
     public Iterable<PostRent> findAll() {
@@ -29,5 +29,10 @@ public class PostRentServiceImpl implements PostRentService {
     @Override
     public void remove(Integer id) {
         this.postRentRepository.deleteById(id);
+    }
+
+    @Override
+    public Iterable<PostRent> findAllByUserId(Iterable<Integer> ids) {
+        return this.postRentRepository.findAllById(ids);
     }
 }
