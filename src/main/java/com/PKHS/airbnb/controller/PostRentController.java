@@ -1,13 +1,32 @@
 package com.PKHS.airbnb.controller;
 
+import com.PKHS.airbnb.model.Category;
+import com.PKHS.airbnb.model.Image;
 import com.PKHS.airbnb.model.PostRent;
+import com.PKHS.airbnb.model.User;
+import com.PKHS.airbnb.service.CategoryService;
 import com.PKHS.airbnb.service.PostRentService;
+import com.PKHS.airbnb.service.UploadFileService;
+import com.PKHS.airbnb.service.UserService;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/post")
@@ -92,16 +111,15 @@ public class PostRentController {
         List<Image> images = new ArrayList<Image>();
         for (MultipartFile file : files) {
             Path fileNameAndPath = Paths.get(uploadDirectory, file.getOriginalFilename());
-            String file_name = file.getOriginalFilename();
-            String file_link = "image/" + file_name;
-            Image image = new Image(file_name, file_link);
-            if (file_name != "" && file_name != null ){
-                this.uploadFileService.save(image);
-                images.add(image);
-            }
-
             try {
-                Files.write(fileNameAndPath, file.getBytes());
+                if (!fileNameAndPath.equals("")){
+                    Files.write(fileNameAndPath, file.getBytes());
+                    String file_name = file.getOriginalFilename();
+                    String file_link = "image/" + file_name;
+                    Image image = new Image(file_name, file_link);
+                    this.uploadFileService.save(image);
+                    images.add(image);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }

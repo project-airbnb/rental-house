@@ -48,8 +48,8 @@
             <td th:text="${user.address}"></td>
             <td th:text="${user.gender}"></td>
             <td th:text="${user.level_type}"></td>
-            <td><a type="button" class="btn btn-danger" th:href="@{/user/delete/__${user.id}__}">Delete</a></td>
-            <td><a type="button" class="btn btn-danger" th:href="@{/user/edit/__${user.id}__}">Edit</a></td>
+            <td><button class="btn btn-danger" style="background: blue"><a th:href="@{/delete/__${user.id}__}">Delete</a></button></td>
+            <td><button class="btn btn-danger" style="background: red"><a th:href="@{/edit/__${user.id}__}">Edit</a></button></td>
         </tr>
     </th:block>
 </table>

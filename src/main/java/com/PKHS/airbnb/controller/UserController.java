@@ -31,7 +31,7 @@ public class UserController {
         } else {
             users = userService.fillAll(pageable);
         }
-        ModelAndView modelAndView = new ModelAndView("user/view");
+        ModelAndView modelAndView = new ModelAndView("view");
         modelAndView.addObject("users", users);
         return modelAndView;
     }
