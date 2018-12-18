@@ -16,24 +16,32 @@
     <h2 style="text-align: center" th:text="${message}"></h2>
 </th:block>
 <div class="container" style="margin-left: 600px">
-<form th:action="@{/edit}" th:object="${user}" method="post">
-    <input th:type="hidden" name="id" th:field="*{id}">
-    <table>
-            <tr>
-                <td>Password:</td>
-                <td><input  class="form-control" type="text" th:field="*{password}"></td>
-            </tr>
+    <form th:action="@{/user/edit}" th:object="${user}" method="post">
+        <input type="hidden" th:field="*{id}">
+        <table>
             <tr>
                 <td>Username:</td>
                 <td><input class="form-control" type="text" th:field="*{username}"></td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td><input class="form-control" type="password" th:field="*{password}"></td>
             </tr>
             <tr>
                 <td>Email:</td>
                 <td><input class="form-control" type="text" th:field="*{email}"></td>
             </tr>
             <tr>
+                <td>Age:</td>
+                <td><input class="form-control" type="text" th:field="*{age}"></td>
+            </tr>
+            <tr>
                 <td>Phone:</td>
-                <td ><input class="form-control" type="text" th:field="*{phone}"></td>
+                <td><input class="form-control" type="text" th:field="*{phone}"></td>
+            </tr>
+            <tr>
+                <td>Province:</td>
+                <td><input class="form-control" type="text" th:field="*{province}"></td>
             </tr>
             <tr>
                 <td>Address:</td>
@@ -41,19 +49,16 @@
             </tr>
             <tr>
                 <td>Gender:</td>
-                <td><input class="form-control" type="text" th:field="*{gender}"></td>
+                <td><input type="radio" name="gender" th:field="*{gender}" th:value="true" th:text="Nam">
+                    <input type="radio" name="gender" th:field="*{gender}" th:value="false" th:text="Nu"></td>
             </tr>
             <tr>
-                <td>Level_type:</td>
-                <td><input class="form-control" type="text" th:field="*{level_type}"></td>
+                <td></td>
+                <td><input class="btn btn-info" type="submit" value="Update"></td>
             </tr>
-        <tr>
-            <td></td>
-            <td><input type="submit" value="Update"></td>
-        </tr>
-    </table>
-</form>
-<a th:href="@{/}">Back to View</a>
+        </table>
+    </form>
+    <a th:href="@{/user}">Back to View</a>
 </div>
 </body>
 </html>

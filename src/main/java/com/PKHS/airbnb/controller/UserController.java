@@ -31,10 +31,11 @@ public class UserController {
         } else {
             users = userService.fillAll(pageable);
         }
-        ModelAndView modelAndView = new ModelAndView("view");
+        ModelAndView modelAndView = new ModelAndView("user/list");
         modelAndView.addObject("users", users);
         return modelAndView;
     }
+
 
     @GetMapping("/delete/{id}")
     public ModelAndView viewDelete(@PathVariable("id") Integer id, User user) {
@@ -52,7 +53,7 @@ public class UserController {
             modelAndView.addObject("delete", "delete successfully");
             return modelAndView;
         } else {
-            ModelAndView modelAndView = new ModelAndView("delete");
+            ModelAndView modelAndView = new ModelAndView("redirect:/user");
             modelAndView.addObject("message", "Not User delete..");
             return modelAndView;
         }

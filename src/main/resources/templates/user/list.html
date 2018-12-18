@@ -2,14 +2,64 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>View</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <!--Latest compiled and minified JavaScript -->
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 </head>
-<body>
-<h1>List Usernam</h1>
-<th:block th:each="user: ${users}">
-    <!--<p th:text="${user.getUsername()}"></p>-->
+<br>
+<h1 class="text-center">List user</h1>
+<div class="container">
+    <form>
+        <div class="col-md-6">
+            <form class="search-form">
+                <tr>
+                    <td><input class="form-control" placeholder="search username" name="s" type="text"></td>
+                    <!--<td> <input type="submit" value="Click"></td>-->
+                    <td>
+                        <button class="btn btn-link search-btn"><i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </td>
+                </tr>
+            </form>
+        </div>
+    </form>
+    </br>
+    <table border="1" class="table table-striped">
+        <tr>
+            <td>ID User</td>
+            <td>UserName</td>
+            <td>Email</td>
+            <td>Phone</td>
+            <td>Age</td>
+            <td>Address</td>
+            <td>Gender</td>
+            <td>Edit</td>
+            <td>Delete</td>
+        </tr>
+        <th:block th:each="user: ${users}">
+            <tr>
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.phone}"></td>
+                <td th:text="${user.age}"></td>
+                <td th:text="${user.address}"></td>
+                <td th:text="${user.gender} ? 'nam' : 'nu'" ></td>
+                <td><a type="button" class="btn btn-info" th:href="@{user/edit/__${user.id}__}">Edit</a></td>
+                <td><a type="button" class="btn btn-info" th:href="@{user/delete/__${user.id}__}">Delete</a></td>
+            </tr>
+        </th:block>
+    </table>
+    <div>
+        <a th:href="@{'/user'(page=${users.number - 1})}" th:if="${users.hasPrevious()}">Previous</a>
+        <span th:text="${users.number + 1}"></span>/<span th:text="${users.totalPages}"></span>
+        <a th:href="@{'/user'(page=${users.number + 1})}" th:if="${users.hasNext()}">Next</a>
+    </div>
+</div>
 
-
-</th:block>
 </body>
 </html>
