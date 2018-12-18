@@ -78,4 +78,24 @@ public class UserController {
         }
     }
 
+    @GetMapping("/create")
+    public ModelAndView viewCreate() {
+        ModelAndView modelAndView = new ModelAndView("user/create");
+        modelAndView.addObject("user", new User());
+        return modelAndView;
+    }
+
+    @PostMapping("/create")
+    public ModelAndView addUser (@Valid @ModelAttribute("user") User user, BindingResult bindingResult) {
+        ModelAndView modelAndView = new ModelAndView("user/create");
+        if (bindingResult.hasFieldErrors()){
+            return modelAndView;
+        }else {
+            userService.save(user);
+            modelAndView = new ModelAndView("redirect:/user");
+            modelAndView.addObject("message", "New user created successfully");
+            modelAndView.addObject("user", new User());
+            return modelAndView;
+        }
+    }
 }
