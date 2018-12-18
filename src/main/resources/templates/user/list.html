@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8">
     <title>View</title>
@@ -11,6 +12,8 @@
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 </head>
 <br>
+<h2>Welcome : <span th:text="${#request.userPrincipal.name}"></span></h2>
+<a href="/logout">Logout</a>
 <h1 class="text-center">List user</h1>
 <div class="container">
     <form>
@@ -48,7 +51,7 @@
                 <td th:text="${user.phone}"></td>
                 <td th:text="${user.age}"></td>
                 <td th:text="${user.address}"></td>
-                <td th:text="${user.gender} ? 'nam' : 'nu'" ></td>
+                <td th:text="${user.gender} ? 'nam' : 'nu'"></td>
                 <td><a type="button" class="btn btn-info" th:href="@{user/edit/__${user.id}__}">Edit</a></td>
                 <td><a type="button" class="btn btn-info" th:href="@{user/delete/__${user.id}__}">Delete</a></td>
             </tr>

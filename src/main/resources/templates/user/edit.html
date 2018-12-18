@@ -11,17 +11,17 @@
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<h1 class="text-center" style="color: red">Edit User</h1>
+<h1 class="text-center">Edit User</h1>
 <th:block th:if="${message}">
     <h2 style="text-align: center" th:text="${message}"></h2>
 </th:block>
-<div class="container" style="margin-left: 600px">
+<div class="container">
     <form th:action="@{/user/edit}" th:object="${user}" method="post">
         <input type="hidden" th:field="*{id}">
-        <table>
+        <table class="table">
             <tr>
                 <td>Username:</td>
-                <td><input class="form-control" type="text" th:field="*{username}"></td>
+                <td><input class="form-control" type="text" th:field="*{username}" readonly></td>
             </tr>
             <tr>
                 <td>Password:</td>
@@ -33,7 +33,7 @@
             </tr>
             <tr>
                 <td>Age:</td>
-                <td><input class="form-control" type="text" th:field="*{age}"></td>
+                <td><input class="form-control" type="number" th:field="*{age}"></td>
             </tr>
             <tr>
                 <td>Phone:</td>
@@ -49,8 +49,20 @@
             </tr>
             <tr>
                 <td>Gender:</td>
-                <td><input type="radio" name="gender" th:field="*{gender}" th:value="true" th:text="Nam">
+                <td>
+                    <input type="radio" name="gender" th:field="*{gender}" th:value="true" th:text="Nam">
                     <input type="radio" name="gender" th:field="*{gender}" th:value="false" th:text="Nu"></td>
+            </tr>
+            <tr>
+                <td>Level:</td>
+                <td>
+                    <select th:field="*{roles}" class="form-control">
+                        <option th:each="role : ${auth_roles}"
+                                th:value="${role.id}"
+                                th:field="*{roles}"
+                                th:text="${role.id} == 1 ? 'ADMIN' : 'MEMBER'"></option>
+                    </select>
+                </td>
             </tr>
             <tr>
                 <td></td>

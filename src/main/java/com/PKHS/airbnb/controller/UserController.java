@@ -1,11 +1,14 @@
 package com.PKHS.airbnb.controller;
 
+import com.PKHS.airbnb.model.Role;
 import com.PKHS.airbnb.model.User;
+import com.PKHS.airbnb.repository.RoleRepository;
 import com.PKHS.airbnb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +21,16 @@ import java.util.Optional;
 @Controller
 @RequestMapping("user")
 public class UserController {
+    @Autowired
+    private RoleRepository roleRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @ModelAttribute("auth_roles")
+    public Iterable<Role> listRoles() {
+        return this.roleRepository.findAll();
+    }
 
     @Autowired
     private UserService userService;
@@ -60,7 +72,7 @@ public class UserController {
     }
 
     @GetMapping("/edit/{id}")
-    public ModelAndView viewEdit(@PathVariable("id") Integer id, User user) {
+    public ModelAndView viewEdit(@PathVariable("id") Integer id) {
         ModelAndView modelAndView = new ModelAndView("user/edit");
         modelAndView.addObject("user", userService.findById(id));
         return modelAndView;
@@ -68,6 +80,7 @@ public class UserController {
 
     @PostMapping("/edit")
     public ModelAndView editUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         ModelAndView modelAndView = new ModelAndView("user/edit");
         if (bindingResult.hasFieldErrors()) {
             return modelAndView;
