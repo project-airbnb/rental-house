@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends PagingAndSortingRepository<User,Integer> {
     Page<User> findAllByUsernameContaining(String name, Pageable pageable);
+    User findByUsername(String name);
 }

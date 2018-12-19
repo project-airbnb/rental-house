@@ -1,42 +1,33 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8">
     <title>View</title>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
-    <!--Latest compiled and minified JavaScript -->
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <br>
-<h1 class="text-center">List user</h1>
 <div class="container">
-    <form>
-        <div class="col-md-6">
-            <form class="search-form">
-                <tr>
-                    <td><input class="form-control" placeholder="search username" name="s" type="text"></td>
-                    <!--<td> <input type="submit" value="Click"></td>-->
-                    <td>
-                        <button class="btn btn-link search-btn"><i class="glyphicon glyphicon-search"></i>
-                        </button>
-                    </td>
-                </tr>
-            </form>
-        </div>
-    </form>
-    </br>
+    <h2>Welcome : <span th:text="${#request.userPrincipal.name}"></span></h2>
+    <a href="/logout">Logout</a>
+    <h1 class="text-center">List user</h1>
+    <div class="col-md-6">
+        <form class="search-form">
+                <input class="form-control" style="float: left" placeholder="search username" name="s" type="text">
+                <button type="submit" class="btn btn-info search-btn">SEARCH
+                    <span class="glyphicon glyphicon-search"></span></button>
+        </form>
+    </div>
     <table border="1" class="table table-striped">
-        <tr>
+        <tr style="font-weight: bold">
             <td>ID User</td>
             <td>UserName</td>
             <td>Email</td>
             <td>Phone</td>
             <td>Age</td>
             <td>Address</td>
-            <td>Gender</td>
+            <td>Level</td>
             <td>Edit</td>
             <td>Delete</td>
         </tr>
@@ -48,9 +39,10 @@
                 <td th:text="${user.phone}"></td>
                 <td th:text="${user.age}"></td>
                 <td th:text="${user.address}"></td>
-                <td th:text="${user.gender} ? 'nam' : 'nu'" ></td>
-                <td><a type="button" class="btn btn-info" th:href="@{user/edit/__${user.id}__}">Edit</a></td>
-                <td><a type="button" class="btn btn-info" th:href="@{user/delete/__${user.id}__}">Delete</a></td>
+                <td th:each="role : ${user.roles}" th:text="${role.id} == 1 ? 'ADMIN' : 'MEMBER'"></td>
+                <td><a type="button" class="btn btn-info" th:href="@{/user/edit/__${user.id}__}">Edit</a></td>
+                <td><a type="button" class="btn btn-info" th:href="@{/user/delete/__${user.id}__}"
+                       onclick="return confirm('Do you delete user?')">Delete</a></td>
             </tr>
         </th:block>
     </table>

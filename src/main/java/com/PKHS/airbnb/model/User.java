@@ -3,6 +3,7 @@ package com.PKHS.airbnb.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -13,6 +14,14 @@ public class User implements Serializable {
 
     @OneToMany(targetEntity = RentalHouse.class)
     private List<RentalHouse> posts;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles;
 
     private String username;
     private String password;
@@ -104,5 +113,13 @@ public class User implements Serializable {
 
     public void setGender(boolean gender) {
         this.gender = gender;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }

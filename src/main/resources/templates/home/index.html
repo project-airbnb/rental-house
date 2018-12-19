@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
@@ -15,7 +15,8 @@
         <img src="/css/dota2button.jpg" class="picture">
     </a>
     <div class="collapse navbar-collapse" id="collapsibleNavId">
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <!--Not login-->
+        <ul th:if="${#request.userPrincipal == null}" class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item active main-content">
                 <button class="btn btn-outline-light" data-toggle="modal" data-target=".mode">Log in</button>
                 <div class="mode fade modal">
@@ -24,7 +25,7 @@
                             <div class="modal-header">
                             </div>
                             <div class="modal-body" style="color: deeppink">
-                                <form th:action="@{/login}" method="POST">
+                                <form th:action="@{/}" method="POST">
                                     <div class="form-group">
                                         <label for="username">User name:</label>
                                 <input class="form-control" type="text" id="username" name="username" placeholder="Your username" />
@@ -49,9 +50,26 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#"> Sign Up </a>
+                <a class="nav-link" href="/user/create"> Sign Up </a>
             </li>
         </ul>
+        <!--login success-->
+        <ul th:if="${#request.userPrincipal}" class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active main-content"><div th:text="${#request.userPrincipal.name}"></div></li>
+            <li class="nav-item active main-content"><a href="/logout">Logout</a></li>
+        </ul>
+
+        <!--Post-->
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li th:if="${#request.userPrincipal}" class="nav-item active main-content">
+                <a href="/post/add-post-rent"><button type="button" class="btn btn-warning">Dang Tin</button></a>
+            </li>
+            <li th:if="${#request.userPrincipal} == null" class="nav-item active main-content">
+                <button class="btn btn-warning" data-toggle="modal" data-target=".mode">Dang Tin</button>
+            </li>
+        </ul>
+
+        <!--search-->
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="text" placeholder="Search">
             <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
