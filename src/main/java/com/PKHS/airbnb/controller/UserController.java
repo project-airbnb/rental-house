@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import javax.validation.Valid;
@@ -50,27 +51,12 @@ public class UserController {
 
 
     @GetMapping("/delete/{id}")
-    public ModelAndView viewDelete(@PathVariable("id") Integer id, User user) {
-        ModelAndView modelAndView = new ModelAndView("user/delete");
-        modelAndView.addObject("user", userService.findById(id));
-        return modelAndView;
+    public String viewDelete(@PathVariable("id") Integer id, RedirectAttributes attributes) {
+        User user = this.userService.findById(id);
+        this.userService.remove(id);
+        attributes.addFlashAttribute("message", "Delete User '"+user.getUsername()+"' successful");
+        return "redirect:/user";
     }
-
-    @PostMapping("/delete")
-    public ModelAndView deleteUser(@RequestParam Integer id, User user) {
-        user = userService.findById(id);
-        if (user != null) {
-            userService.remove(id);
-            ModelAndView modelAndView = new ModelAndView("user/delete");
-            modelAndView.addObject("delete", "delete successfully");
-            return modelAndView;
-        } else {
-            ModelAndView modelAndView = new ModelAndView("redirect:/user");
-            modelAndView.addObject("message", "Not User delete..");
-            return modelAndView;
-        }
-    }
-
     @GetMapping("/edit/{id}")
     public ModelAndView viewEdit(@PathVariable("id") Integer id) {
         ModelAndView modelAndView = new ModelAndView("user/edit");
@@ -99,14 +85,15 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public ModelAndView addUser (@Valid @ModelAttribute("user") User user, BindingResult bindingResult) {
+    public ModelAndView addUser (@Valid @ModelAttribute("user") User user, BindingResult bindingResult, RedirectAttributes attributes) {
+        user.setPassword(this.passwordEncoder.encode(user.getPassword()));
         ModelAndView modelAndView = new ModelAndView("user/create");
         if (bindingResult.hasFieldErrors()){
             return modelAndView;
         }else {
             userService.save(user);
             modelAndView = new ModelAndView("redirect:/user");
-            modelAndView.addObject("message", "New user created successfully");
+            attributes.addFlashAttribute("message", "New user created successfully");
             modelAndView.addObject("user", new User());
             return modelAndView;
         }

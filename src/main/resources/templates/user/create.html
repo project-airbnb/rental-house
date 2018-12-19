@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Edit</title>
+    <title>RESGISTER</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <!-- Optional theme -->
@@ -11,14 +11,13 @@
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<h1 class="text-center" style="color: red">Add User</h1>
+<h1 class="text-center">Add User</h1>
 <th:block th:if="${message}">
-    <h2 style="text-align: center" th:text="${message}"></h2>
+    <h2 th:text="${message}"></h2>
 </th:block>
-<div class="container" style="margin-left: 600px">
+<div class="container">
     <form th:action="@{/user/create}" th:object="${user}" method="post">
-        <input type="hidden" th:field="*{id}">
-        <table>
+        <table class="table">
             <tr>
                 <td>Username:</td>
                 <td><input class="form-control" type="text" th:field="*{username}"></td>
@@ -52,13 +51,19 @@
                 <td><input type="radio" name="gender" th:field="*{gender}" th:value="true" th:text="Nam">
                     <input type="radio" name="gender" th:field="*{gender}" th:value="false" th:text="Nu"></td>
             </tr>
+            <select th:field="*{roles}" class="form-control" style="display:none;">
+                    <option th:each="role : ${auth_roles}"
+                            th:value="${role.id} == 2 ? ${role.id} : 2"
+                            th:field="*{roles}"
+                            th:text="${role.id} == 2 ? 'ADMIN' : 'MEMBER'"></option>
+                </select>
             <tr>
                 <td></td>
                 <td><input class="btn btn-info" type="submit" value="Create"></td>
             </tr>
         </table>
     </form>
-    <a th:href="@{/user}">Back to View</a>
+    <a th:href="@{/}">Back to Home</a>
 </div>
 </body>
 </html>

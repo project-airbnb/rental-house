@@ -11,8 +11,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.servlet.http.HttpSession;
-
 @Configuration
 @EnableWebSecurity
 public class SpringSecurityWebAppConfig extends WebSecurityConfigurerAdapter {

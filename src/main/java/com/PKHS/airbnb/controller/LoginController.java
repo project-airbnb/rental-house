@@ -57,4 +57,9 @@ public class LoginController {
         }
         return "redirect:/";
     }
+
+    @GetMapping("/register")
+    public String register() {
+        return "forward:/user/create";
+    }
 }
