@@ -14,6 +14,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+<div th:replace="fragments/header :: header"></div>
 <div th:if="${message}">
     <p th:text="${message}"></p>
 </div>
@@ -27,5 +28,6 @@
     <a th:href="@{/post/edit-post-rent/__${post.id}__}">Edit</a> |
     <a th:href="@{/post/delete-post-rent/__${post.id}__}" onclick="return confirm('delete now?')">Delete</a>
 </th:block>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>
