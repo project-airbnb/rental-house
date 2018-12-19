@@ -58,6 +58,17 @@
             <li class="nav-item active main-content"><div th:text="${#request.userPrincipal.name}"></div></li>
             <li class="nav-item active main-content"><a href="/logout">Logout</a></li>
         </ul>
+
+        <!--Post-->
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li th:if="${#request.userPrincipal}" class="nav-item active main-content">
+                <a href="/post/add-post-rent"><button type="button" class="btn btn-warning">Dang Tin</button></a>
+            </li>
+            <li th:if="${#request.userPrincipal} == null" class="nav-item active main-content">
+                <button class="btn btn-warning" data-toggle="modal" data-target=".mode">Dang Tin</button>
+            </li>
+        </ul>
+
         <!--search-->
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="text" placeholder="Search">
