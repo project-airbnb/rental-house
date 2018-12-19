@@ -15,7 +15,8 @@
         <img src="/css/dota2button.jpg" class="picture">
     </a>
     <div class="collapse navbar-collapse" id="collapsibleNavId">
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <!--Not login-->
+        <ul th:if="${#request.userPrincipal == null}" class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item active main-content">
                 <button class="btn btn-outline-light" data-toggle="modal" data-target=".mode">Log in</button>
                 <div class="mode fade modal">
@@ -52,6 +53,12 @@
                 <a class="nav-link" href="/user/create"> Sign Up </a>
             </li>
         </ul>
+        <!--login success-->
+        <ul th:if="${#request.userPrincipal}" class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active main-content"><div th:text="${#request.userPrincipal.name}"></div></li>
+            <li class="nav-item active main-content"><a href="/logout">Logout</a></li>
+        </ul>
+        <!--search-->
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="text" placeholder="Search">
             <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
@@ -61,11 +68,6 @@
 <br>
 <br>
 <br>
-<th:block th:if="${#request.userPrincipal}">
-    <h2>Welcome : <span th:text="${#request.userPrincipal.name}"></span></h2>
-    <a href="/logout">Logout</a>
-</th:block>
-
 <div id="carouselId" class="container carousel slide" data-ride="carousel">
     <h1>Recommended for You</h1>
     <ol class="carousel-indicators">
