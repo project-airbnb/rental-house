@@ -33,13 +33,16 @@ public class CustomerRentalHouseController {
     @Autowired
     private CustomerRentalHouseService customerRentalHouseService;
 
+    //get id user login
     @ModelAttribute("myName")
-    public User listUser(Principal principal) {
-        String myUser = principal.getName();
-        Iterable<User> users = this.userService.findAll();
-        for (User user : users) {
-            if (myUser.equals(user.getUsername())) {
-                return user;
+    public Integer listUser(Principal principal) {
+        if(principal != null) {
+            String myUser = principal.getName();
+            Iterable<User> users = this.userService.findAll();
+            for (User user : users) {
+                if (myUser.equals(user.getUsername())) {
+                    return user.getId();
+                }
             }
         }
         return null;

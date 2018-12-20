@@ -14,6 +14,16 @@
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
     <script>
+        function getId() {
+            $(document).ready(function () {
+                //get data rental_house_id
+                var rental_id = [[${house.id}]];
+                $("#rental_id").val(rental_id);
+                $("#user_id").val([[${myName}]]);
+
+            });
+        }
+
         //    date
         $(document).ready(function () {
             var date_start = $('#start-date'); //our date input has the name "date"
@@ -42,20 +52,10 @@
             });
 
         });
-
-        $(document).ready(function () {
-            //get data rental_house_id
-            var rental_id = [[${house.id}]];
-            $("#rental_id").val(rental_id);
-            //get id user
-            var user_myid = [[${myName.id}]];
-            $("#user_id").val(user_myid);
-        })
     </script>
     <title th:object="${house}" th:text="${house.title}"></title>
 </head>
 <body>
-<p id="show_user" th:text="${myName.username}"></p>
 <div th:replace="fragments/header :: header"></div>
 <div class="container">
     <div th:object="${house}">
@@ -80,21 +80,23 @@
     </div>
 
     <div>
-        <form class="form-horizontal" method="post" th:action="@{/house/action}" th:object="${order}">
+        <form class="form-horizontal" method="post" th:action="@{/house/action}" th:object="${order}" onsubmit="getId();">
             <input type="hidden" th:field="*{rental_house_id}" id="rental_id">
-            <input type="hidden" th:field="*{user_id}" id="user_id" >
+            <div th:if="${#request.userPrincipal}">
+                <input type="hidden" th:field="*{user_id}" id="user_id" >
+            </div>
             <div class="form-group">
                 <label for="start-date" class="col-sm-2 control-label">Start-date</label>
                 <div class="col-sm-4">
                     <input class="form-control" id="start-date" name="date" th:field="*{date_begin}"
-                           placeholder="MM/DD/YYYY" type="text"/>
+                           placeholder="MM/DD/YYYY" type="text" autocomplete="off"/>
                 </div>
             </div>
             <div class="form-group">
-                <label for="end-date" class="col-sm-2 control-label">And-date</label>
+                <label for="end-date" class="col-sm-2 control-label">End-date</label>
                 <div class="col-sm-4">
                     <input class="form-control" th:field="*{date_end}" id="end-date"
-                           name="date" placeholder="MM/DD/YYYY" type="text"/>
+                           name="date" placeholder="MM/DD/YYYY" type="text" autocomplete="off"/>
                 </div>
             </div>
             <div class="form-group">
@@ -105,11 +107,21 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-info">Submit</button>
-                    <button type="reset" class="btn btn-default ">Reset</button>
+                    <div th:if="${#request.userPrincipal}">
+                        <button type="submit" class="btn btn-info">Dang ky thue</button>
+                        <button type="reset" class="btn btn-default ">Reset</button>
+                    </div>
                 </div>
             </div>
         </form>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <div th:if="${#request.userPrincipal} == null">
+                    <button class="btn btn-warning" data-toggle="modal" data-target=".mode">Dang ky thue</button>
+                </div>
+            </div>
+        </div>
+        <br><br><br>
     </div>
 </div>
 <div th:replace="fragments/footer :: footer"></div>
