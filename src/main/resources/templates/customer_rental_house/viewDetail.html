@@ -33,24 +33,30 @@
             var price = [[${house.price}]];
             var date_start, date_end;
             $("#end-date, #start-date").change(function () {
-                if ($("#end-date").val() != "" && $("#start-date").val() != ""){
+                if ($("#end-date").val() != "" && $("#start-date").val() != "") {
                     date_start = new Date($("#start-date").val());
                     date_end = new Date($("#end-date").val());
                     var total_date = date_end.getDate() - date_start.getDate() + 1;
-                    $("#price_order").val(total_date* price);
+                    $("#price_order").val(total_date * price);
                 }
             });
 
+        });
+
+        $(document).ready(function () {
             //get data rental_house_id
             var rental_id = [[${house.id}]];
             $("#rental_id").val(rental_id);
-        });
+            //get id user
+            var user_myid = [[${myName.id}]];
+            $("#user_id").val(user_myid);
+        })
     </script>
     <title th:object="${house}" th:text="${house.title}"></title>
 </head>
 <body>
+<p id="show_user" th:text="${myName.username}"></p>
 <div th:replace="fragments/header :: header"></div>
-
 <div class="container">
     <div th:object="${house}">
         <table>
@@ -74,9 +80,9 @@
     </div>
 
     <div>
-        <form class="form-horizontal" method="post" th:action="@{/house/action}" th:object="${order}" >
+        <form class="form-horizontal" method="post" th:action="@{/house/action}" th:object="${order}">
             <input type="hidden" th:field="*{rental_house_id}" id="rental_id">
-            <input type="hidden" th:field="*{user_id}" id="user_id" value="17">
+            <input type="hidden" th:field="*{user_id}" id="user_id" >
             <div class="form-group">
                 <label for="start-date" class="col-sm-2 control-label">Start-date</label>
                 <div class="col-sm-4">

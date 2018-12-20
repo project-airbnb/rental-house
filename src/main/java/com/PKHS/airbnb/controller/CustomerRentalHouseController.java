@@ -5,6 +5,7 @@ import com.PKHS.airbnb.model.RentalHouse;
 import com.PKHS.airbnb.model.User;
 import com.PKHS.airbnb.service.CustomerRentalHouseService;
 import com.PKHS.airbnb.service.OrderService;
+import com.PKHS.airbnb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
 import java.util.Optional;
 
 @Controller
@@ -26,8 +28,22 @@ public class CustomerRentalHouseController {
     private OrderService orderService;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private CustomerRentalHouseService customerRentalHouseService;
 
+    @ModelAttribute("myName")
+    public User listUser(Principal principal) {
+        String myUser = principal.getName();
+        Iterable<User> users = this.userService.findAll();
+        for (User user : users) {
+            if (myUser.equals(user.getUsername())) {
+                return user;
+            }
+        }
+        return null;
+    }
 
     @GetMapping("/house")
     public ModelAndView showListHousesForm(@RequestParam("price")Optional<String> price, Pageable pageable) {

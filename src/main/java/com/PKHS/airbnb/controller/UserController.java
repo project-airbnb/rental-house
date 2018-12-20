@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.Optional;
 
 @Controller
@@ -31,11 +32,6 @@ public class UserController {
     @ModelAttribute("auth_roles")
     public Iterable<Role> listRoles() {
         return this.roleRepository.findAll();
-    }
-
-    @ModelAttribute("all_username")
-    public Iterable<User> listUser() {
-        return this.userService.findAll();
     }
 
     @Autowired
