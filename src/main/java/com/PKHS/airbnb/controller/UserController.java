@@ -33,6 +33,11 @@ public class UserController {
         return this.roleRepository.findAll();
     }
 
+    @ModelAttribute("all_username")
+    public Iterable<User> listUser() {
+        return this.userService.findAll();
+    }
+
     @Autowired
     private UserService userService;
 
