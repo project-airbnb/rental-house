@@ -77,6 +77,7 @@ public class CustomerRentalHouseController {
         return "redirect:/house";
     }
 
+
     @GetMapping("/order_list")
     public String order_list(Model model) {
         model.addAttribute("orders", this.orderService.findAll());
