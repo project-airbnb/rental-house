@@ -1,8 +1,10 @@
 package com.PKHS.airbnb.controller;
 
+import com.PKHS.airbnb.model.Comment;
 import com.PKHS.airbnb.model.Order;
 import com.PKHS.airbnb.model.RentalHouse;
 import com.PKHS.airbnb.model.User;
+import com.PKHS.airbnb.service.CommentService;
 import com.PKHS.airbnb.service.CustomerRentalHouseService;
 import com.PKHS.airbnb.service.OrderService;
 import com.PKHS.airbnb.service.UserService;
@@ -15,11 +17,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 import java.util.Optional;
+import java.util.TimeZone;
 
 @Controller
 public class CustomerRentalHouseController {
@@ -28,10 +32,15 @@ public class CustomerRentalHouseController {
     private OrderService orderService;
 
     @Autowired
+    private CommentService commentService;
+
+    @Autowired
     private UserService userService;
 
     @Autowired
     private CustomerRentalHouseService customerRentalHouseService;
+
+    private RentalHouse rentalHouse;
 
     //get id user login
     @ModelAttribute("myName")
@@ -47,7 +56,6 @@ public class CustomerRentalHouseController {
         }
         return null;
     }
-
     @GetMapping("/house")
     public ModelAndView showListHousesForm(@RequestParam("price")Optional<String> price, Pageable pageable) {
         Page<RentalHouse> houses;
@@ -64,9 +72,12 @@ public class CustomerRentalHouseController {
     @GetMapping("/house/detail/{id}")
     public ModelAndView showHouseDetail(@PathVariable Integer id) {
         RentalHouse house = customerRentalHouseService.findById(id);
+        Iterable<Comment> comments = this.commentService.findAll();
         ModelAndView modelAndView = new ModelAndView("customer_rental_house/viewDetail");
         modelAndView.addObject("house", house);
         modelAndView.addObject("order", new Order());
+        modelAndView.addObject("cm", new Comment());
+        modelAndView.addObject("comments",comments);
         return modelAndView;
     }
 
@@ -74,6 +85,12 @@ public class CustomerRentalHouseController {
     public String accessOrder(@ModelAttribute("order")Order order) {
         System.out.println(order.getPrice());
         this.orderService.save(order);
+        return "redirect:/house";
+    }
+
+    @PostMapping("/house/comment")
+    public String createComment(@ModelAttribute("cm") Comment comment) {
+        this.commentService.save(comment);
         return "redirect:/house";
     }
 
