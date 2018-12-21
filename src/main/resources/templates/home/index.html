@@ -40,7 +40,7 @@
     <a class="navbar-brand" href="#">
         <img src="/css/dota2button.jpg" class="picture">
     </a>
-    <div class="collapse navbar-collapse" id="collapsibleNavId">
+    <a class="collapse navbar-collapse" id="collapsibleNavId">
         <!--Not login-->
         <ul th:if="${#request.userPrincipal == null}" class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item active main-content">
@@ -81,7 +81,7 @@
         </ul>
         <!--login success-->
         <ul th:if="${#request.userPrincipal}" class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li class="nav-item active main-content"><div th:text="${#request.userPrincipal.name}"></div></li>
+            <li class="nav-item active main-content"><a th:href="@{/user/__${myName}__/__${#request.userPrincipal.getName()}__}" th:text="${#request.userPrincipal.getName()}"></a></li>
             <li class="nav-item active main-content"><a href="/logout">Logout</a></li>
         </ul>
 

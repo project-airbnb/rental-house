@@ -9,6 +9,7 @@
 </head>
 <br>
 <div class="container">
+    <div th:replace="fragments/header :: header"></div>
     <h2>Welcome : <span th:text="${#request.userPrincipal.name}"></span></h2>
     <a href="/logout">Logout</a>
     <h1 class="text-center">List user</h1>
@@ -51,6 +52,7 @@
         <span th:text="${users.number + 1}"></span>/<span th:text="${users.totalPages}"></span>
         <a th:href="@{'/user'(page=${users.number + 1})}" th:if="${users.hasNext()}">Next</a>
     </div>
+    <div th:replace="fragments/footer :: footer"></div>
 </div>
 
 </body>

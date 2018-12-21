@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -37,7 +38,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping
+
+    @GetMapping("/admin/manager_user")
     public ModelAndView viewHome(@RequestParam("s") Optional<String> s, @PageableDefault(size = 5) Pageable pageable) {
         Page<User> users;
         if (s.isPresent()) {
@@ -98,5 +100,12 @@ public class UserController {
             modelAndView.addObject("user", new User());
             return modelAndView;
         }
+    }
+
+    @GetMapping("/{id}/{username}")
+    public String userDetail(@PathVariable("id") int id, Model model) {
+        User user = this.userService.findById(id);
+        model.addAttribute("user", user);
+        return "user/view";
     }
 }
