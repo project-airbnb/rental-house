@@ -13,6 +13,7 @@
             src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+    <script type="text/javascript" th:src="@{/css/get_user_id.js}"></script>
     <script>
         function getId() {
             $(document).ready(function () {
@@ -20,10 +21,8 @@
                 var rental_id = [[${house.id}]];
                 $("#rental_id").val(rental_id);
                 $("#user_id").val([[${myName}]]);
-
             });
         }
-
         //    date
         $(document).ready(function () {
             var date_start = $('#start-date'); //our date input has the name "date"

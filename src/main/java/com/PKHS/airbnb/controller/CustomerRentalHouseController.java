@@ -75,7 +75,7 @@ public class CustomerRentalHouseController {
     public String accessOrder(@ModelAttribute("order")Order order) {
         System.out.println(order.getPrice());
         this.orderService.save(order);
-        return "redirect:/house";
+        return "redirect:/order/my_order";
     }
 
 
