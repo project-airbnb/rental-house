@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.util.Optional;
@@ -78,16 +79,28 @@ public class CustomerRentalHouseController {
     }
 
 
-    @GetMapping("/order_list")
+    @GetMapping("/order/order_list")
     public String order_list(Model model) {
         model.addAttribute("orders", this.orderService.findAll());
         return "customer_rental_house/order-list";
     }
 
-    @GetMapping("/order_detail/{id}")
+    @GetMapping("/order/order_detail/{id}")
     public String order_detail(@PathVariable("id") int id, Model model) {
         model.addAttribute("order", this.orderService.findById(id));
         return "customer_rental_house/order-detail";
     }
 
+    @GetMapping("/order/my_order")
+    public String my_list_order(Model model) {
+        model.addAttribute("myOrders", this.orderService.findAll());
+        return "customer_rental_house/order-my-list";
+    }
+
+    @GetMapping("/order/destroy_order/{id}")
+    public String order_destroy(@PathVariable("id") int id, RedirectAttributes attributes) {
+        this.orderService.remove(id);
+        attributes.addFlashAttribute("message", "Destroy order success");
+        return "redirect:/order/my_order";
+    }
 }
