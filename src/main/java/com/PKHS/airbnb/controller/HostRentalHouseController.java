@@ -123,6 +123,7 @@ public class HostRentalHouseController extends CustomerRentalHouseController {
                            @ModelAttribute("post") RentalHouse post,
                            RedirectAttributes attributes) {
         List<Image> images = new ArrayList<Image>();
+        User user;
         for (MultipartFile file : files) {
             Path fileNameAndPath = Paths.get(uploadDirectory, file.getOriginalFilename());
             try {
