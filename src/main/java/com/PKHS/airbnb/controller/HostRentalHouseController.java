@@ -21,10 +21,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/post")
-public class HostRentalHouseController {
+public class HostRentalHouseController extends CustomerRentalHouseController {
     public static String uploadDirectory = System.getProperty("user.dir") + "/src/main/resources/static/image";
 
     @Autowired
@@ -84,8 +85,27 @@ public class HostRentalHouseController {
     }
 
     @PostMapping("/edit-post-rent")
-    public String updatePost(@ModelAttribute("post") RentalHouse post,
+    public String updatePost(@RequestParam("files") MultipartFile[] files, @ModelAttribute("post") RentalHouse post,
                              RedirectAttributes attributes) {
+        List<Image> images = new ArrayList<Image>();
+        for (MultipartFile file : files) {
+            Path fileNameAndPath = Paths.get(uploadDirectory, file.getOriginalFilename());
+            try {
+                if (!fileNameAndPath.equals("")){
+                    Files.write(fileNameAndPath, file.getBytes());
+                    String file_name = file.getOriginalFilename();
+                    String file_link = "image/" + file_name;
+                    Image image = new Image(file_name, file_link);
+                    this.uploadFileService.save(image);
+                    images.add(image);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if (images.size() >0){
+            post.setImages(images);
+        }
         this.postRentService.save(post);
         attributes.addFlashAttribute("message", "Update post successful");
         return "redirect:/post";
