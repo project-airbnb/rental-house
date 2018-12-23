@@ -41,24 +41,6 @@ public class CustomerRentalHouseController extends GetIdUserController{
     @Autowired
     private CustomerRentalHouseService customerRentalHouseService;
 
-    private RentalHouse rentalHouse;
-
-    //get id user login
-    @ModelAttribute("myName")
-    public Integer listUser(Principal principal) {
-        if(principal != null) {
-            String myUser = principal.getName();
-            Iterable<User> users = this.userService.findAll();
-            for (User user : users) {
-                if (myUser.equals(user.getUsername())) {
-                    return user.getId();
-                }
-            }
-        }
-        return null;
-    }
-
-
     @GetMapping("/house")
     public ModelAndView showListHousesForm(@RequestParam("price")Optional<String> price, Pageable pageable) {
         Page<RentalHouse> houses;
