@@ -1,8 +1,10 @@
 package com.PKHS.airbnb.controller;
 
+import com.PKHS.airbnb.model.Comment;
 import com.PKHS.airbnb.model.Order;
 import com.PKHS.airbnb.model.RentalHouse;
 import com.PKHS.airbnb.model.User;
+import com.PKHS.airbnb.service.CommentService;
 import com.PKHS.airbnb.service.CustomerRentalHouseService;
 import com.PKHS.airbnb.service.OrderService;
 import com.PKHS.airbnb.service.UserService;
@@ -15,12 +17,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.util.Optional;
+import java.util.TimeZone;
 
 @Controller
 public class CustomerRentalHouseController extends GetIdUserController{
@@ -29,11 +33,30 @@ public class CustomerRentalHouseController extends GetIdUserController{
     private OrderService orderService;
 
     @Autowired
+    private CommentService commentService;
+
+    @Autowired
     private UserService userService;
 
     @Autowired
     private CustomerRentalHouseService customerRentalHouseService;
 
+    private RentalHouse rentalHouse;
+
+    //get id user login
+    @ModelAttribute("myName")
+    public Integer listUser(Principal principal) {
+        if(principal != null) {
+            String myUser = principal.getName();
+            Iterable<User> users = this.userService.findAll();
+            for (User user : users) {
+                if (myUser.equals(user.getUsername())) {
+                    return user.getId();
+                }
+            }
+        }
+        return null;
+    }
 
 
     @GetMapping("/house")
@@ -52,9 +75,12 @@ public class CustomerRentalHouseController extends GetIdUserController{
     @GetMapping("/house/detail/{id}")
     public ModelAndView showHouseDetail(@PathVariable Integer id) {
         RentalHouse house = customerRentalHouseService.findById(id);
+        Iterable<Comment> comments = this.commentService.findAll();
         ModelAndView modelAndView = new ModelAndView("customer_rental_house/viewDetail");
         modelAndView.addObject("house", house);
         modelAndView.addObject("order", new Order());
+        modelAndView.addObject("cm", new Comment());
+        modelAndView.addObject("comments",comments);
         return modelAndView;
     }
 
@@ -63,6 +89,12 @@ public class CustomerRentalHouseController extends GetIdUserController{
         System.out.println(order.getPrice());
         this.orderService.save(order);
         return "redirect:/order/my_order";
+    }
+
+    @PostMapping("/house/comment")
+    public String createComment(@ModelAttribute("cm") Comment comment) {
+        this.commentService.save(comment);
+        return "redirect:/house";
     }
 
 

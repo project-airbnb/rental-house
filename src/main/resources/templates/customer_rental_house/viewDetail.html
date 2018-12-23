@@ -176,6 +176,28 @@
     </div>
 
 </div>
+<div class="container">
+    <div class="col-lg-8 col-sm-6 text-center">
+        <h4>What is on your mind?</h4>
+        <form th:action="@{/house/comment}" method="post" role="form" th:object="${cm}">
+            <div class="input-group">
+                <textarea th:field="*{body}" type="text" class="form-control input-sm chat-input" placeholder="Write your message here..."></textarea>
+            </div>
+            <input type="hidden" th:field="*{rentalHouse}">
+            <div class="input-group">
+                <button type="submit" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-comment"></span>  Comment  </button>
+                </span>
+            </div>
+        </form>
+    </div>
+</div>
+<h2>Comments:</h2>
+
+<!--Comments-->
+<div class="well" th:each="comment: ${comments}">
+    <p th:text="${comment.body}"></p>
+    <p th:if="${#request.userPrincipal}" th:text="${#request.userPrincipal.getName()}"></p>
+</div>
 <div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

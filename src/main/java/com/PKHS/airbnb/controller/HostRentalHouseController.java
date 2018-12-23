@@ -9,6 +9,8 @@ import com.PKHS.airbnb.service.HostRentalHouseService;
 import com.PKHS.airbnb.service.UploadFileService;
 import com.PKHS.airbnb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -41,8 +43,8 @@ public class HostRentalHouseController extends GetIdUserController {
     private UploadFileService uploadFileService;
 
     @ModelAttribute("categories")
-    public Iterable<Category> categories() {
-        return this.categoryService.findAll();
+    public Page<Category> categories(Pageable pageable) {
+        return this.categoryService.findAll(pageable);
     }
 
     @ModelAttribute("users")
