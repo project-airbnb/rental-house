@@ -43,8 +43,8 @@ public class HostRentalHouseController extends GetIdUserController {
     private UploadFileService uploadFileService;
 
     @ModelAttribute("categories")
-    public Page<Category> categories(Pageable pageable) {
-        return this.categoryService.findAll(pageable);
+    public Iterable<Category> categories() {
+        return this.categoryService.findAll();
     }
 
     @ModelAttribute("users")
