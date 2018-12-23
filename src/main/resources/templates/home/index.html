@@ -176,6 +176,7 @@
 <br>
 <!-- Item slider-->
 <div class="container">
+    <h1>Category Rental Houses</h1>
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="carousel carousel-showmanymoveone slide" id="itemslider">
@@ -183,16 +184,18 @@
 
                     <div class="item active">
                         <div class="col-xs-12 col-sm-6 col-md-2">
-                            <a href="#"><img src="image/house.jpg" width="180" height="200"></a>
-                            <h4 class="text-center">MAYORAL SUKNJA</h4>
+                            <a href="/"><img src="image/house.jpg" width="180" height="200"></a>
+                            <h4 class="text-center">LIST CATEGORY RENTAL HOUSE</h4>
                             <h5 class="text-center">1 tỷ USA</h5>
                         </div>
                     </div>
 
-                    <div class="item" th:each="cate : ${categories}">
-                        <div class="col-xs-12 col-sm-6 col-md-2">
-                            <a th:href="@{/category/__${cate.id}__/__${cate.name}__}"><img src="image/house1.jpg" width="180" height="200"></a>
-                            <h4 class="text-center">MAYORAL KOŠULJA</h4>
+                    <div class="item"  th:each="cate : ${categories}">
+                        <div class="col-xs-12 col-sm-6 col-md-2" >
+                            <a th:href="@{/category/__${cate.id}__/__${cate.name}__}">
+                                <img th:if="${cate.getPosts()[0].getImages().size()} > 0" th:src="@{/__${cate.getPosts()[0].getImages()[0].getLink()}__}" width="180" height="200"></a>
+                                <img th:if="${cate.getPosts()[0].getImages().size()} <= 0" th:src="@{/image/151164737.jpg}" width="180" height="200"></a>
+                            <h4 class="text-center" style="text-transform: uppercase" th:text="${cate.getName()}"></h4>
                             <h5 class="text-center">2 tỷ USA</h5>
                         </div>
                     </div>
@@ -212,6 +215,7 @@
 
 <!-- Item slider end-->
 <div class="container">
+    <h1>List Rental Houses NEW</h1>
     <div class="row mgtop1">
         <div class="col-md-3 col-sm-6" style="height: 400px;" th:each="rental_house : ${rental_houses}">
             <a th:href="@{/house/detail/__${rental_house.id}__}">
@@ -224,7 +228,7 @@
             </a>
             <div><a th:href="@{/house/detail/__${rental_house.id}__}">
                 <h4 class="c-heading" th:text="${rental_house.title}"></h4></a></div>
-            <h3 style="color: red; font-weight: bold" th:utext="${'<b>Price:</b> '} + ${rental_house.price} + ${' VND/ngay'}"></h3>
+            <button class="btn btn-info" style="color: white; font-weight: bold" th:utext="${'<b>Price:</b> '} + ${rental_house.price} + ${' VND/day'}"></button>
         </div>
     </div>
 </div>
