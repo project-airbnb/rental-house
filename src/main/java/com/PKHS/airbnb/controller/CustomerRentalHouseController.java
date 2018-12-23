@@ -3,7 +3,6 @@ package com.PKHS.airbnb.controller;
 import com.PKHS.airbnb.model.Comment;
 import com.PKHS.airbnb.model.Order;
 import com.PKHS.airbnb.model.RentalHouse;
-import com.PKHS.airbnb.model.User;
 import com.PKHS.airbnb.service.CommentService;
 import com.PKHS.airbnb.service.CustomerRentalHouseService;
 import com.PKHS.airbnb.service.OrderService;
@@ -11,20 +10,13 @@ import com.PKHS.airbnb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.security.Principal;
 import java.util.Optional;
-import java.util.TimeZone;
 
 @Controller
 public class CustomerRentalHouseController extends GetIdUserController{
