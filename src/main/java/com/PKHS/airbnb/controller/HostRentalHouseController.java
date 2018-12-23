@@ -23,9 +23,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Controller
+@RestController
 @RequestMapping("/post")
-public class HostRentalHouseController extends CustomerRentalHouseController {
+public class HostRentalHouseController extends GetIdUserController {
     public static String uploadDirectory = System.getProperty("user.dir") + "/src/main/resources/static/image";
 
     @Autowired
@@ -91,11 +91,12 @@ public class HostRentalHouseController extends CustomerRentalHouseController {
         for (MultipartFile file : files) {
             Path fileNameAndPath = Paths.get(uploadDirectory, file.getOriginalFilename());
             try {
-                if (!fileNameAndPath.equals("")){
+                if (!fileNameAndPath.equals("")) {
                     Files.write(fileNameAndPath, file.getBytes());
                     String file_name = file.getOriginalFilename();
                     String file_link = "image/" + file_name;
                     Image image = new Image(file_name, file_link);
+                    image.setPost(post);
                     this.uploadFileService.save(image);
                     images.add(image);
                 }
@@ -103,7 +104,7 @@ public class HostRentalHouseController extends CustomerRentalHouseController {
                 e.printStackTrace();
             }
         }
-        if (images.size() >0){
+        if (images.size() > 0) {
             post.setImages(images);
         }
         this.postRentService.save(post);
@@ -120,14 +121,14 @@ public class HostRentalHouseController extends CustomerRentalHouseController {
 
     @PostMapping("/add-post-rent-new")
     public String savePost(@RequestParam("files") MultipartFile[] files,
-                           @ModelAttribute("post") RentalHouse post,
+                           @ModelAttribute("post") RentalHouse post, @ModelAttribute("myName") Integer user_id,
                            RedirectAttributes attributes) {
         List<Image> images = new ArrayList<Image>();
-        User user;
+        User user = this.userService.findById(user_id);
         for (MultipartFile file : files) {
             Path fileNameAndPath = Paths.get(uploadDirectory, file.getOriginalFilename());
             try {
-                if (!fileNameAndPath.equals("")){
+                if (!fileNameAndPath.equals("")) {
                     Files.write(fileNameAndPath, file.getBytes());
                     String file_name = file.getOriginalFilename();
                     String file_link = "image/" + file_name;
@@ -140,9 +141,10 @@ public class HostRentalHouseController extends CustomerRentalHouseController {
             }
             System.out.println(file.getOriginalFilename());
         }
-        if (images.size() >0){
+        if (images.size() > 0) {
             post.setImages(images);
         }
+        post.setUser(user);
         this.postRentService.save(post);
         attributes.addFlashAttribute("message", "Create post successfull");
         return "redirect:/post";

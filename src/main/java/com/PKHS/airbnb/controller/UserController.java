@@ -53,12 +53,12 @@ public class UserController {
     }
 
 
-    @GetMapping("/delete/{id}")
+    @GetMapping("/admin/delete/{id}")
     public String viewDelete(@PathVariable("id") Integer id, RedirectAttributes attributes) {
         User user = this.userService.findById(id);
         this.userService.remove(id);
         attributes.addFlashAttribute("message", "Delete User '"+user.getUsername()+"' successful");
-        return "redirect:/user";
+        return "redirect:/user/admin/manager_user";
     }
     @GetMapping("/edit/{id}")
     public ModelAndView viewEdit(@PathVariable("id") Integer id) {
@@ -70,7 +70,7 @@ public class UserController {
     @PostMapping("/edit")
     public ModelAndView editUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        ModelAndView modelAndView = new ModelAndView("user/edit");
+        ModelAndView modelAndView = new ModelAndView("redirect:/user/admin/manager_user");
         if (bindingResult.hasFieldErrors()) {
             return modelAndView;
         } else {
