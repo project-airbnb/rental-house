@@ -45,38 +45,39 @@
     </script>
 </head>
 <body>
-<div class="navbar navbar-expand-sm bg-overlay">
-    <a class="navbar-brand" href="#">
+<div class="bg-overlay">
+<div class="navbar navbar-expand-sm">
+    <a class="navbar-brand" href="/">
         <img src="/css/dota2button.jpg" class="picture">
     </a>
     <a class="collapse navbar-collapse" id="collapsibleNavId"></a>
         <!--Not login-->
         <ul th:if="${#request.userPrincipal == null}" class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item active main-content">
-                <button class="btn btn-outline-light" data-toggle="modal" data-target=".mode">Log in</button>
+                <button class="btn btn-default" data-toggle="modal" data-target=".mode">Log in</button>
                 <div class="mode fade modal">
                     <div class="modal-dialog">
-                        <div class="modal-content">
+                        <div class="modal-content" style="background: aquamarine">
                             <div class="modal-header">
                             </div>
                             <div class="modal-body" style="color: deeppink">
                                 <form th:action="@{/}" method="POST">
                                     <div class="form-group">
-                                        <label for="username">User name:</label>
+                                        <label for="username"><h3> User name: </h3></label>
                                         <input class="form-control" type="text" id="username" name="username"
                                                placeholder="Your username"/>
                                     </div>
                                     <div class="form-group">
-                                        <label for="pwd">Password:</label>
+                                        <label for="pwd"><h3> Password: </h3></label>
                                         <input class="form-control" type="password" name="password"
                                                placeholder="Your password" id="pwd"/>
                                     </div>
                                     <div class="form-group form-check">
                                         <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox"> Remember me
+                                            <input class="form-check-input" type="checkbox"><br>Rememeber me
                                         </label>
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Login</button>
+                                    <button type="submit" class="btn btn-primary btn-lg">  Login  </button>
                                     <br/>
                                 </form>
                             </div>
@@ -87,8 +88,12 @@
                     </div>
                 </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/register}"> Sign Up </a>
+            <li class="nav-item active main-content">
+                <!--<div>-->
+                <a th:href="@{/register}">
+                <button class="btn btn-info"> Sign Up </button>
+                </a>
+                <!--</div>-->
             </li>
         </ul>
         <!--login success-->
@@ -114,15 +119,31 @@
         <!--search-->
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="text" placeholder="Search">
-            <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+            <button class="btn btn-success my-2 my-sm-0" type="submit"> Search </button>
         </form>
     </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+<div class="container">
+    <div class="text-center" style="font-size: 46px; font-style: italic">
+        <h1>Welcome to 25.PKHS-Airbnb Project</h1><br>
+    <h3>Book unique homes and experiences.</h3>
+    </div>
+</div>
+</div>
 </div>
 <br>
 <br>
 <br>
 <!--Slide image-->
+
 <div class="container" style="height: 400px">
+    <div class="text-center"><h1>Category Rental Houses</h1></div>
+    <br>
     <div id="myCarousel" class="carousel slide" data-interval="3000" data-ride="carousel">
         <!-- Carousel indicators -->
         <ol class="carousel-indicators">
@@ -174,9 +195,11 @@
 <br>
 <br>
 <br>
+<br>
 <!-- Item slider-->
 <div class="container">
-    <h1>Category Rental Houses</h1>
+    <div class="text-center"><h1>List Rental Houses NEW</h1></div>
+    <br>
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="carousel carousel-showmanymoveone slide" id="itemslider">
@@ -215,7 +238,6 @@
 
 <!-- Item slider end-->
 <div class="container">
-    <h1>List Rental Houses NEW</h1>
     <div class="row mgtop1">
         <div class="col-md-3 col-sm-6" style="height: 400px;" th:each="rental_house : ${rental_houses}">
             <a th:href="@{/house/detail/__${rental_house.id}__}">
@@ -235,5 +257,6 @@
 <br>
 <div class="jumbotron text-center" style="margin-bottom:0">
 </div>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>
