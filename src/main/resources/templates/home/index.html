@@ -98,21 +98,21 @@
         </ul>
         <!--login success-->
         <ul th:if="${#request.userPrincipal}" class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li class="nav-item active main-content"><a
+            <li class="nav-item active main-content"><a type="button" class="btn btn-success"
                     th:href="@{/user/__${myName}__/__${#request.userPrincipal.getName()}__}"
                     th:text="${#request.userPrincipal.getName()}"></a></li>
-            <li class="nav-item active main-content"><a href="/logout">Logout</a></li>
+            <li class=" nav-item active main-content"><a type="button" class="btn btn-info" href="/logout">Logout</a></li>
         </ul>
 
         <!--Post-->
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li th:if="${#request.userPrincipal}" class="nav-item active main-content">
                 <a th:href="@{/post/add-post-rent}">
-                    <button type="button" class="btn btn-warning">Dang Tin</button>
+                    <button class="btn btn-warning">ĐĂNG TIN</button>
                 </a>
             </li>
             <li th:if="${#request.userPrincipal} == null" class="nav-item active main-content">
-                <button class="btn btn-warning" data-toggle="modal" data-target=".mode">Dang Tin</button>
+                <button class="btn btn-warning" data-toggle="modal" data-target=".mode">ĐĂNG TIN</button>
             </li>
         </ul>
 
@@ -253,6 +253,7 @@
             <div><a th:href="@{/house/detail/__${rental_house.id}__}">
                 <h4 class="c-heading" th:text="${rental_house.title}"></h4></a></div>
             <a type="button" th:href="@{/house/detail/__${rental_house.id}__}" class="btn btn-info" style="color: white; font-weight: bold" th:utext="${'<b>Price:</b> '} + ${rental_house.price} + ${' VND/day'}"></a>
+            <a th:href="@{/user/__${rental_house.user.username}__}"     style="color: blue; font-weight: bold" th:utext="${'<br>'} + ${#request.userPrincipal.name}"></a>
         </div>
     </div>
 </div>
