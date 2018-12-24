@@ -18,7 +18,7 @@
 <div class="container row">
 
     <div class="col-sm-9">
-        <table class="table table-bordered" th:each="post : ${postRents}" >
+        <table class="table table-bordered"  >
             <thead>
             <tr>
                 <th>Title</th>
@@ -28,8 +28,8 @@
                 <th>Delete</th>
             </tr>
             </thead>
-            <tbody th:each="img : ${post.getImages()}">
-                <tr>
+            <tbody  th:each="post : ${postRents}" >
+                <tr th:each="img : ${post.getImages()}">
                     <td><a th:href="@{/post/view-post/__${post.id}__}" th:text="${post.title}"></a></td>
                     <td><img th:src="@{/__${img.getLink()}__}" th:alt="${img.getName()}" width="100px" height="100px" /></td>
                     <td th:text="${post.getImages().size()}"></td>
