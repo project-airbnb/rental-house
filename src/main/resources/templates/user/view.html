@@ -6,17 +6,19 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <style>
-        #footer {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: auto;
-        }
-    </style>
+
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
+<br>
+
+<div class="container" th:each="user_role: ${user.getRoles()}" th:if="(${user_role.id} == 1)">
+    <div th:if="(${#request.getUserPrincipal().name} == ${user.getUsername()})">
+        <a th:href="@{/user/admin/manager_user}"><button class="btn btn-warning">Quan ly User</button></a>
+        <a th:href="@{/user/admin/manager-order-list}"><button class="btn btn-warning">Quan ly Order</button></a>
+        <a th:href="@{/category/create-category}"><button class="btn btn-warning">Create Category</button></a>
+    </div>
+</div>
 <br>
 <div class="container">
     <div class="col-md-6">
@@ -53,12 +55,6 @@
         <div th:each="post : ${user.getPosts()}">
             <p><a th:href="@{/house/detail/__${post.id}__}" th:text="${post.title}"></a></p>
         </div>
-    </div>
-</div>
-<div class="container" th:each="user_role: ${user.getRoles()}" th:if="(${user_role.id} == 1)">
-    <div th:if="(${#request.getUserPrincipal().name} == ${user.getUsername()})">
-        <a th:href="@{/user/admin/manager_user}"><button class="btn btn-default">Quan ly User</button></a>
-        <a th:href="@{/user/admin/manager_user}"><button class="btn btn-default">Quan ly User</button></a>
     </div>
 </div>
 <div th:replace="fragments/footer :: footer"></div>
