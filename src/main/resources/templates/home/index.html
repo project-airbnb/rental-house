@@ -51,10 +51,7 @@
 <body>
 <div class="bg-overlay">
     <div class="navbar navbar-expand-sm">
-        <!--<a class="navbar-brand" href="/">-->
-        <!--<img src="/css/dota2button.jpg" class="picture">-->
-        <!--</a>-->
-        <a class="navbar-brand collapse " id="collapsibleNavId"></a>
+        <a class="collapse navbar-brand" id="collapsibleNavId"></a>
         <!--Not login-->
         <ul th:if="${#request.userPrincipal == null}" class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item active main-content">
@@ -102,13 +99,11 @@
         </ul>
         <!--login success-->
         <ul th:if="${#request.userPrincipal}" class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li class=" nav-item active main-content">
-                <a type="button" class="btn btn-info" href="/logout">Logout</a>
+            <li class=" nav-item active main-content"><a type="button" class="btn btn-info" href="/logout">Logout</a>
             </li>
-            <li class="nav-item active main-content">
-                <a type="button" style="text-transform: uppercase; font-weight: bold" class="btn btn-success"
-                   th:href="@{/user/__${myName}__/__${#request.userPrincipal.getName()}__}"
-                   th:text="${#request.userPrincipal.getName()}"></a></li>
+            <li class="nav-item active main-content"><a type="button" class="btn btn-success"
+                                                        th:href="@{/user/__${myName}__/__${#request.userPrincipal.getName()}__}"
+                                                        th:text="${#request.userPrincipal.getName()}"></a></li>
         </ul>
 
         <!--Post-->
@@ -268,7 +263,7 @@
                style="color: white; font-weight: bold"
                th:utext="${'<b>Price:</b> '} + ${rental_house.price} + ${' VND/day'}"></a>
             <a th:href="@{/user/__${rental_house.user.username}__}" style="color: red; font-weight: bold"
-               th:utext="${'<br>'} + ${#request.userPrincipal.name}"></a>
+               th:utext="${'<br>'} + ${rental_house.getUser().getUsername()}"></a>
         </div>
     </div>
 </div>
