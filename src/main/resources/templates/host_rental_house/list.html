@@ -31,9 +31,10 @@
             </tr>
             </thead>
             <tbody th:each="post : ${postRents}">
-                <tr th:if="${#request.userPrincipal.name} == ${post.getUser().username}"  th:each="img : ${post.getImages()}">
-                    <td><a th:href="@{/post/view-post/__${post.id}__}" th:text="${post.title}"></a></td>
-                    <td><img th:src="@{/__${img.getLink()}__}" th:alt="${img.getName()}" width="100px" height="100px" /></td>
+                <tr th:if="${#request.userPrincipal.name} == ${post.getUser().username}"  >
+                    <td><a th:href="@{/house/detail/__${post.id}__}" th:text="${post.title}"></a></td>
+                    <td th:if="${post.getImages().size()} > 0"><img th:src="@{/__${post.getImages()[0].getLink()}__}" th:alt="${post.getImages()[0].getName()}" width="100px" height="100px" /></td>
+                    <td th:if="${post.getImages().size()} <= 0"><img th:src="@{/image/house.jpg}"  width="100px" height="100px" /></td>
                     <td th:text="${post.getImages().size()}"></td>
                     <td><span th:text="${post.getPrice()}"></span> VND/day</td>
                     <td th:text="${post.getUser().username}"></td>

@@ -62,3 +62,12 @@ create table order_detail(
   FOREIGN KEY (username) REFERENCES user(username),
   FOREIGN KEY (rental_house_id) REFERENCES rental_house(id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ALTER DATABASE airbnb
+CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+use airbnb;
+ALTER TABLE category CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+ALTER TABLE rental_house CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+ALTER TABLE user CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+ALTER TABLE image_house CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+ALTER TABLE order_detail CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+ALTER TABLE order_detail CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;

@@ -58,8 +58,13 @@ public class LoginController extends GetIdUserController{
     }
 
     @GetMapping("/403")
-    public String errors() {
+    public String test() {
         return "errors/403";
+    }
+
+    @GetMapping("/test2")
+    public String errors() {
+        return "home/admin";
     }
 
     @GetMapping("/logout")

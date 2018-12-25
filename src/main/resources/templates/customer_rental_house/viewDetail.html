@@ -8,6 +8,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
+    <!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>-->
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>-->
     <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css"/>
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
@@ -56,19 +60,27 @@
     </script>
     <title th:object="${house}" th:text="${house.title}"></title>
 </head>
-<body class="container">
 <div th:replace="fragments/header :: header"></div>
+<body class="container">
 <th:block th:object="${house}">
     <div class="container">
-        <div class="col-md-12"><h1 style="text-align: center" th:utext="${house.title}"></h1>
+        <!--User và nút xóa-->
+        <div class="col-md-6">Chủ thuê: <a th:href="@{/user/__${house.user.id}__/__${house.user.username}__}"
+                                           th:text="${house.user.username}"></a></div>
+        <div class="col-md-6" style="text-align: right;">
             <th:block th:if="${#request.userPrincipal}">
-            <div th:if="${house.user.username} == ${#request.userPrincipal.getName()}">
-                <a type="button" th:href="@{/post/edit-post-rent/__${house.id}__}">Edit Post Rental House</a>
-                <a type="button" th:href="@{/post/delete-post-rent/__${house.id}__}">Delete Post</a>
-            </div>
+                <div th:if="${house.user.username} == ${#request.userPrincipal.getName()}">
+                    <a type="button" th:href="@{/post/edit-post-rent/__${house.id}__}">
+                        <button class="btn btn-info">Edit Post</button>
+                    </a>
+                    <a type="button" th:href="@{/post/delete-post-rent/__${house.id}__}"
+                       onclick="return confirm('delete now?')">
+                        <button class="btn btn-danger">Delete Post</button>
+                    </a>
+                </div>
             </th:block>
         </div>
-        <div class="col-md-12">Chủ thuê: <a th:href="@{/user/__${house.user.id}__/__${house.user.username}__}" th:text="${house.user.username}"></a></div>
+        <h1 style="text-align: center" th:utext="${house.title}"></h1>
         <div th:if="${house.images.size()} > 0" class="col-md-12" style="height: 400px">
             <div id="myCarousel" class="carousel slide" data-interval="3000" data-ride="carousel">
                 <!-- Carousel indicators -->
@@ -184,31 +196,35 @@
         </div>
     </div>
 
-<hr>
-<div class="container">
-    <div class="col-lg-9 col-sm-6 text-center" th:if="${#request.userPrincipal}" >
-        <h4>Comment</h4>
-        <form th:action="@{/house/__${house.id}__/comment}" method="post" role="form" th:object="${cm}">
-            <div class="form-group">
-                <textarea th:field="*{body}" rows="5" class="form-control input-sm chat-input" placeholder="Write your message here..."></textarea>
+    <hr>
+    <div class="container">
+        <div class="col-lg-9 col-sm-6 text-center" th:if="${#request.userPrincipal}">
+            <h4>Comment</h4>
+            <form th:action="@{/house/__${house.id}__/comment}" method="post" role="form" th:object="${cm}">
+                <div class="form-group">
+                    <textarea th:field="*{body}" rows="5" class="form-control input-sm chat-input"
+                              placeholder="Write your message here..."></textarea>
+                </div>
+                <input type="hidden" th:field="*{rentalHouse}">
+                <div class="input-group">
+                    <button type="submit" class="btn btn-primary btn-lg"><span
+                            class="glyphicon glyphicon-comment"></span> Comment
+                    </button>
+                    </span>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-3"></div>
+        <div class="col-md-6">
+            <h2>Comments:</h2>
+            <!--Comments-->
+            <div class="well" th:each="comment: ${comments}" th:if="${house.id} == ${comment.rentalHouse.id}">
+                <a th:if="${comment.user.username}" th:href="@{/user/__${comment.user.username}__}"
+                   th:text="${comment.user.username}"></a>
+                <p th:text="${comment.body}"></p>
             </div>
-            <input type="hidden" th:field="*{rentalHouse}">
-            <div class="input-group">
-                <button type="submit" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-comment"></span>  Comment  </button>
-                </span>
-            </div>
-        </form>
-    </div>
-    <div class="col-lg-3"></div>
-    <div class="col-md-6">
-        <h2>Comments:</h2>
-        <!--Comments-->
-        <div class="well" th:each="comment: ${comments}" th:if="${house.id} == ${comment.rentalHouse.id}">
-            <a th:if="${comment.user.username}" th:href="@{/user/__${comment.user.username}__}" th:text="${comment.user.username}"></a>
-            <p th:text="${comment.body}"></p>
         </div>
     </div>
-</div>
 
 </th:block>
 <div th:replace="fragments/footer :: footer"></div>
