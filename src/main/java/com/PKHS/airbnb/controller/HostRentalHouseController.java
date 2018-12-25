@@ -1,13 +1,7 @@
 package com.PKHS.airbnb.controller;
 
-import com.PKHS.airbnb.model.Category;
-import com.PKHS.airbnb.model.Image;
-import com.PKHS.airbnb.model.RentalHouse;
-import com.PKHS.airbnb.model.User;
-import com.PKHS.airbnb.service.CategoryService;
-import com.PKHS.airbnb.service.HostRentalHouseService;
-import com.PKHS.airbnb.service.UploadFileService;
-import com.PKHS.airbnb.service.UserService;
+import com.PKHS.airbnb.model.*;
+import com.PKHS.airbnb.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
@@ -27,7 +22,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/post")
-public class HostRentalHouseController extends CustomerRentalHouseController {
+public class HostRentalHouseController extends GetIdUserController {
     public static String uploadDirectory = System.getProperty("user.dir") + "/src/main/resources/static/image";
 
     @Autowired
@@ -37,14 +32,17 @@ public class HostRentalHouseController extends CustomerRentalHouseController {
     private CategoryService categoryService;
 
     @Autowired
+    private OrderService orderService;
+
+    @Autowired
     private UserService userService;
 
     @Autowired
     private UploadFileService uploadFileService;
 
     @ModelAttribute("categories")
-    public Page<Category> categories(Pageable pageable) {
-        return this.categoryService.findAll(pageable);
+    public Iterable<Category> categories() {
+        return this.categoryService.findAll();
     }
 
     @ModelAttribute("users")
@@ -53,21 +51,24 @@ public class HostRentalHouseController extends CustomerRentalHouseController {
     }
 
     @GetMapping
-    public String listPostRents(Model model) {
+    public ModelAndView listPostRents() {
         Iterable<RentalHouse> postRents = this.postRentService.findAll();
-        model.addAttribute("postRents", postRents);
-        return "host_rental_house/list";
+        ModelAndView modelAndView = new ModelAndView("host_rental_house/list");
+        modelAndView.addObject("postRents", postRents);
+        return modelAndView;
     }
 
     @GetMapping("/view-post/{id}")
-    public String viewPostRent(@PathVariable("id") int id, Model model) {
+    public ModelAndView viewPostRent(@PathVariable("id") int id) {
         RentalHouse rentalHouse = this.postRentService.findById(id);
-        model.addAttribute("postRent", rentalHouse);
-        return "host_rental_house/view-post";
+        ModelAndView modelAndView = new ModelAndView("/host_rental_house/view-post");
+        modelAndView.addObject("postRent", rentalHouse);
+        return modelAndView;
     }
 
     @GetMapping("/delete-post-rent/{id}")
     public String deletePost(@PathVariable("id") int id, RedirectAttributes attributes) {
+        RentalHouse post = this.postRentService.findById(id);
         if (this.postRentService.findById(id) != null) {
             this.postRentService.remove(id);
             attributes.addFlashAttribute("message", "Delete Successful");
@@ -93,11 +94,12 @@ public class HostRentalHouseController extends CustomerRentalHouseController {
         for (MultipartFile file : files) {
             Path fileNameAndPath = Paths.get(uploadDirectory, file.getOriginalFilename());
             try {
-                if (!fileNameAndPath.equals("")){
+                if (!fileNameAndPath.equals("")) {
                     Files.write(fileNameAndPath, file.getBytes());
                     String file_name = file.getOriginalFilename();
                     String file_link = "image/" + file_name;
                     Image image = new Image(file_name, file_link);
+                    image.setPost(post);
                     this.uploadFileService.save(image);
                     images.add(image);
                 }
@@ -105,7 +107,7 @@ public class HostRentalHouseController extends CustomerRentalHouseController {
                 e.printStackTrace();
             }
         }
-        if (images.size() >0){
+        if (images.size() > 0) {
             post.setImages(images);
         }
         this.postRentService.save(post);
@@ -114,22 +116,23 @@ public class HostRentalHouseController extends CustomerRentalHouseController {
     }
 
     @GetMapping("/add-post-rent")
-    public String addPost(Model model) {
+    public ModelAndView addPost() {
         RentalHouse post = new RentalHouse();
-        model.addAttribute("post", post);
-        return "host_rental_house/add";
+        ModelAndView modelAndView = new ModelAndView("host_rental_house/add");
+        modelAndView.addObject("post", post);
+        return modelAndView;
     }
 
     @PostMapping("/add-post-rent-new")
-    public String savePost(@RequestParam("files") MultipartFile[] files,
-                           @ModelAttribute("post") RentalHouse post,
-                           RedirectAttributes attributes) {
+    public ModelAndView savePost(@RequestParam("files") MultipartFile[] files,
+                                 @ModelAttribute("post") RentalHouse post, @ModelAttribute("myName") Integer user_id,
+                                 RedirectAttributes attributes) {
         List<Image> images = new ArrayList<Image>();
-        User user;
+        User user = this.userService.findById(user_id);
         for (MultipartFile file : files) {
             Path fileNameAndPath = Paths.get(uploadDirectory, file.getOriginalFilename());
             try {
-                if (!fileNameAndPath.equals("")){
+                if (!fileNameAndPath.equals("")) {
                     Files.write(fileNameAndPath, file.getBytes());
                     String file_name = file.getOriginalFilename();
                     String file_link = "image/" + file_name;
@@ -142,11 +145,13 @@ public class HostRentalHouseController extends CustomerRentalHouseController {
             }
             System.out.println(file.getOriginalFilename());
         }
-        if (images.size() >0){
+        if (images.size() > 0) {
             post.setImages(images);
         }
+        post.setUser(user);
         this.postRentService.save(post);
         attributes.addFlashAttribute("message", "Create post successfull");
-        return "redirect:/post";
+        ModelAndView modelAndView = new ModelAndView("redirect:/post");
+        return modelAndView;
     }
 }

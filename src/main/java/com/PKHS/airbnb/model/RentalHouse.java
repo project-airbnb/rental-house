@@ -17,7 +17,7 @@ public class RentalHouse {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(targetEntity = Order.class)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "rental_house_id")
     private List<Order> orders;
 
     @OneToMany(targetEntity = Image.class)
@@ -167,4 +167,13 @@ public class RentalHouse {
     public void setHouse_area(int house_area) {
         this.house_area = house_area;
     }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
 }
