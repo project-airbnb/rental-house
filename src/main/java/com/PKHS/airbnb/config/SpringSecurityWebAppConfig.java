@@ -17,13 +17,13 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 @Configuration
 @EnableWebSecurity
 public class SpringSecurityWebAppConfig extends WebSecurityConfigurerAdapter {
+    //redirect duong link ve trang minh tung dung sau khi dang nhap
     @Bean
     public AuthenticationSuccessHandler successHandler() {
         SimpleUrlAuthenticationSuccessHandler handler = new SimpleUrlAuthenticationSuccessHandler();
         handler.setUseReferer(true);
         return handler;
     }
-
     @Autowired
     private UserDetailsService userDetailsService;
 
