@@ -21,37 +21,36 @@
             text-decoration: none;
             color: orange;
         }
+
+       .box:hover {
+            box-shadow: 0 0 33px rgba(33, 33, 33, .2);
+        }
+
     </style>
     <!-- Item slider end-->
     <script type="text/javascript">
-        $(document).ready(function () {
+        $('#carouselExample').on('slide.bs.carousel', function (e) {
 
-            $('#itemslider').carousel({interval: 3000});
 
-            $('.carousel-showmanymoveone .item').each(function () {
-                var itemToClone = $(this);
+            var $e = $(e.relatedTarget);
+            var idx = $e.index();
+            var itemsPerSlide = 4;
+            var totalItems = $('.carousel-item').length;
 
-                for (var i = 1; i < 6; i++) {
-                    itemToClone = itemToClone.next();
-
-                    if (!itemToClone.length) {
-                        itemToClone = $(this).siblings(':first');
+            if (idx >= totalItems - (itemsPerSlide - 1)) {
+                var it = itemsPerSlide - (totalItems - idx);
+                for (var i = 0; i < it; i++) {
+                    // append slides to end
+                    if (e.direction == "left") {
+                        $('.carousel-item').eq(i).appendTo('.carousel-inner');
+                    } else {
+                        $('.carousel-item').eq(0).appendTo('.carousel-inner');
                     }
-
-                    itemToClone.children(':first-child').clone()
-                        .addClass("cloneditem-" + (i))
-                        .appendTo($(this));
                 }
-            });
+            }
         });
-        // money format
-
     </script>
-    <style id="pageStyle">
-        .box:hover {
-            box-shadow: 0 0 33px rgba(33, 33, 33, .2);
-        }
-    </style>
+
 </head>
 <body>
 <div class="bg-overlay">
@@ -147,7 +146,6 @@
 <br>
 <br>
 <!--Slide image-->
-
 <div class="container" style="height: 400px">
     <div class="text-center"><h1>Category Rental Houses</h1></div>
     <br>
@@ -184,51 +182,39 @@
 <br>
 <!-- Item slider-->
 <div class="container">
-    <h1>LIST CATEGORY RENTAL HOUSE</h1>
-    <br>
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="carousel carousel-showmanymoveone slide" id="itemslider">
-                <div class="carousel-inner">
-
-                    <div class="item active">
-                        <div class="col-xs-12 col-sm-6 col-md-2">
-                            <a href="/"><img src="image/house.jpg" width="180" height="200"></a>
-                            <h4 class="text-center">LIST CATEGORY RENTAL HOUSE</h4>
-                            <h5 class="text-center">1 tỷ USA</h5>
-                        </div>
-                    </div>
-
-                    <div th:class="'item'" th:each="cate : ${categories}">
-                        <div th:if="${cate.getPosts().size()} > 0" class="col-xs-12 col-sm-6 col-md-2 box">
-                            <a th:href="@{/category/__${cate.id}__/__${cate.name}__}">
-                                <img th:if="${cate.getPosts()[0].getImages().size()} > 0"
-                                     th:src="@{/__${cate.getPosts()[0].getImages()[0].getLink()}__}" width="180"
-                                     height="200">
-                                <img th:if="${cate.getPosts()[0].getImages().size()} <= 0"
-                                     th:src="@{/image/151164737.jpg}"
-                                     width="180" height="200"></a>
-                            <h4 class="text-center" style="text-transform: uppercase" th:text="${cate.getName()}"></h4>
-                            <h5 class="text-center">2 tỷ USA</h5>
-                        </div>
-                    </div>
-
+    <h2>DANH SÁCH THỂ LOẠI NHÀ</h2>
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-3" th:each="category : ${categories}">
+                <div class="shadow p-3 mb-5 bg-light rounded" style="padding-top: 10px" >
+                    <a th:href="@{/category/__${category.id}__/__${category.name}__}">
+                        <img style="height: 300px; width: 250px"
+                             th:if="${category.getPosts()[0].getImages().size()} > 0"
+                             th:src="${category.getPosts()[0].getImages()[0].getLink()}" alt=""
+                             class="card-img-top">
+                        <img style="height: 300px; width: 250px"
+                             th:if="${category.getPosts()[0].getImages().size()} <= 0"
+                             src="image/anh1.jpg" alt="" class="card-img-top">
+                    </a>
                 </div>
-                <!-- left,right control -->
-                <div id="slider-control">
-                    <a class="left carousel-control" href="#itemslider" data-slide="prev"><img
-                            src="image/arrow_left.png" alt="Left" class="img-responsive"></a>
-                    <a class="right carousel-control" href="#itemslider" data-slide="next"><img
-                            src="image/arrow_right.png" height="63" width="32" alt="Right" class="img-responsive"></a>
+                <div >
+                    <h4 style=" text-align: center;">
+                        <a th:href="@{/category/__${category.id}__/__${category.name}__}"
+                           th:text="${category.name}"></a>
+                    </h4>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<br>
+<br>
+<br>
+<br>
 <!-- Item slider end-->
 <div class="container">
-    <h1>LIST RENTAL HOUSE NEW</h1>
+    <h1>DANH SÁCH NHÀ CHO THUÊ</h1>
     <br>
     <div class="row mgtop1">
         <div class="col-md-3 col-sm-6 box" style="height: 400px; margin-bottom: 10px; padding-top: 10px"
@@ -270,7 +256,7 @@
                 </th:block>
             </div>
             <!--Tieu de-->
-            <div style="height: 80px">
+            <div style="height: 80px; padding-top: 10px">
                 <a th:href="@{/house/detail/__${rental_house.id}__}">
                     <h6 class="c-heading" th:text="${rental_house.title}"></h6></a>
             </div>
@@ -282,9 +268,9 @@
                     </span>
                 </button>
             </div>
-            <div style="height: 20px">
+            <div style="height: 20px; padding-bottom: 15px">
                 <a th:href="@{/user/__${rental_house.user.username}__}" style="text-align:right; color: red;
-                font-weight: bold"  th:utext="${rental_house.getUser().getUsername()}"></a>
+                font-weight: bold" th:utext="${rental_house.getUser().getUsername()}"></a>
             </div>
         </div>
     </div>

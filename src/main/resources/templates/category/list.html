@@ -33,7 +33,7 @@
         <td>Delete</td>
     </tr>
     <tr th:each="category : ${categories}">
-        <td th:text="${category.name}"></td>
+        <td><a th:href="@{/category/__${category.id}__/__${category.name}__}" th:text="${category.name}"></a></td>
         <td><a th:href="@{/category/edit-category/__${category.id}__}">Edit</a></td>
         <td><a th:href="@{/category/delete-category/__${category.id}__}" onclick="return confirm('Do you delete?')">Delete</a></td>
     </tr>
