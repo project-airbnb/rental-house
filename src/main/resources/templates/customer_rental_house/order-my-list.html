@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>List My Order</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous"></script>
 
 </head>
 <body>
@@ -15,7 +19,7 @@
     <table class="table">
         <tr style="font-weight: bold; text-align: center;">
             <td>Ma Order</td>
-            <td>Nha Order</td>
+            <td style="width: 200px">NHA THUE</td>
             <td>Ngay thue</td>
             <td>Ngay tra</td>
             <td>Gia thue ngay</td>
@@ -30,8 +34,8 @@
             <td><a th:href="@{/house/detail/__${order.rental_house_id.id}__}" th:text="${order.rental_house_id.title}"></a></td>
             <td th:text="${order.date_begin}"></td>
             <td th:text="${order.date_end}"></td>
-            <td th:text="${order.rental_house_id.getPrice() + ' VND/day'}"></td>
-            <td th:text="${order.price + ' VND'}"></td>
+            <td th:text="${#numbers.formatDecimal(order.rental_house_id.getPrice(), 0, 'COMMA', 0, 'DEFAULT') + ' VND/ngay'}"></td>
+            <td th:text="${#numbers.formatDecimal(order.price, 0, 'COMMA', 0, 'DEFAULT') + ' VND'}"></td>
             <td><a th:href="@{/user/__${order.user_id.username}__}" th:text="${order.user_id.username}"></a></td>
             <td><a th:href="@{/user/__${order.rental_house_id.user.username}__}" th:text="${order.rental_house_id.user.username}"></a></td>
             <td>Pending</td>

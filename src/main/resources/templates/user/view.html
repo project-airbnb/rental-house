@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>View</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous"></script>
 
 </head>
 <body>
@@ -14,46 +18,54 @@
 
 <div class="container" th:each="user_role: ${user.getRoles()}" th:if="(${user_role.id} == 1)">
     <div th:if="(${#request.getUserPrincipal().name} == ${user.getUsername()})">
-        <a th:href="@{/user/admin/manager_user}"><button class="btn btn-warning">Quan ly User</button></a>
-        <a th:href="@{/user/admin/manager-order-list}"><button class="btn btn-warning">Quan ly Order</button></a>
-        <a th:href="@{/category/create-category}"><button class="btn btn-warning">Create Category</button></a>
+        <a th:href="@{/user/admin/manager_user}">
+            <button class="btn btn-warning">Quan ly User</button>
+        </a>
+        <a th:href="@{/user/admin/manager-order-list}">
+            <button class="btn btn-warning">Quan ly Order</button>
+        </a>
+        <a th:href="@{/category/create-category}">
+            <button class="btn btn-warning">Create Category</button>
+        </a>
     </div>
 </div>
 <br>
 <div class="container">
-    <div class="col-md-6">
-        <h1 class="text-center">My view user <b th:text="${user.username}"></b></h1>
-        <table class="table table-striped">
-            <tr>
-                <td>UserName</td>
-                <td th:text="${user.username}"></td>
-            </tr>
-            <tr>
-                <td>Email</td>
-                <td th:text="${user.email}"></td>
-            </tr>
-            <tr>
-                <td>Phone</td>
-                <td th:text="${user.phone}"></td>
-            </tr>
-            <tr>
-                <td>Age</td>
-                <td th:text="${user.age}"></td>
-            </tr>
-            <tr>
-                <td>Address</td>
-                <td th:text="${user.address}"></td>
-            </tr>
-            <tr>
-                <td>Gender</td>
-                <td th:text="${user.gender} ? 'nam' : 'nu'"></td>
-            </tr>
-        </table>
-    </div>
-    <div class="col-md-6">
-        <h2>List Rent House <b th:text="${user.username}"></b></h2>
-        <div th:each="post : ${user.getPosts()}">
-            <p><a th:href="@{/house/detail/__${post.id}__}" th:text="${post.title}"></a></p>
+    <div class="row">
+        <div class="col-md-6">
+            <h1 class="text-center">My view user <b th:text="${user.username}"></b></h1>
+            <table class="table table-striped">
+                <tr>
+                    <td>UserName</td>
+                    <td th:text="${user.username}"></td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td th:text="${user.email}"></td>
+                </tr>
+                <tr>
+                    <td>Phone</td>
+                    <td th:text="${user.phone}"></td>
+                </tr>
+                <tr>
+                    <td>Age</td>
+                    <td th:text="${user.age}"></td>
+                </tr>
+                <tr>
+                    <td>Address</td>
+                    <td th:text="${user.address}"></td>
+                </tr>
+                <tr>
+                    <td>Gender</td>
+                    <td th:text="${user.gender} ? 'nam' : 'nu'"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <h2>List Rent House <b th:text="${user.username}"></b></h2>
+            <div th:each="post : ${user.getPosts()}">
+                <p><a th:href="@{/house/detail/__${post.id}__}" th:text="${post.title}"></a></p>
+            </div>
         </div>
     </div>
 </div>

@@ -20,18 +20,21 @@
                     <form th:action="@{/}" method="POST">
                         <div class="form-group">
                             <label for="username">User name:</label>
-                            <input class="form-control" type="text" id="username" name="username" placeholder="Your username" />
+                            <input class="form-control" type="text" id="username" name="username"
+                                   placeholder="Your username"/>
                         </div>
                         <div class="form-group">
                             <label for="pwd">Password:</label>
-                            <input class="form-control" type="password" name="password" placeholder="Your password" id="pwd" />
+                            <input class="form-control" type="password" name="password" placeholder="Your password"
+                                   id="pwd"/>
                         </div>
                         <div class="form-group form-check">
                             <label class="form-check-label">
                                 <input class="form-check-input" type="checkbox"> Remember me
                             </label>
                         </div>
-                        <button type="submit" class="btn btn-primary">Login</button> <br />
+                        <button type="submit" class="btn btn-primary">Login</button>
+                        <br/>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -40,66 +43,63 @@
             </div>
         </div>
     </div>
-    <div style="width: 97%">
     <!-- Static navbar -->
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
+        <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" th:href="@{/}"><span class="glyphicon glyphicon-home"></span> Trang chủ</a>
-            </div>
+            <a href="/" class="navbar-brand">Trang chủ</a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="#"><span class="glyphicon glyphicon-list-alt"></span> Giới thiệu <span class="sr-only">(current)</span></a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-earphone"></span> Liên hệ</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-envelope"></span> Góp ý</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-question-sign"></span> Hỏi đáp</a></li>
-                    <li class="dropdown" th:if="${#request.userPrincipal}">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+
+                    <a href="#" class="nav-item active nav-link">Giới thiệu</a>
+                    <a href="#" class="nav-item active nav-link">Lịch sử</a>
+                    <a href="#" class="nav item active nav-link">Địa điểm</a>
+                    <li class="nav-item dropdown" th:if="${#request.userPrincipal}">
+                        <a href="#" class="nav-link dropdown-toggle active" data-toggle="dropdown" role="button"
+                           aria-haspopup="true" aria-expanded="false">
                             <span class="glyphicon glyphicon-user"></span>
-                            <span th:text="${#request.userPrincipal.getName()}"></span><span class="caret"></span></a>
+                            <span th:text="${#request.userPrincipal.getName()}"></span><span
+                                class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a th:href="@{/user/__${#request.userPrincipal.getName()}__}">Thông tin tài khoản</a></li>
-                            <li><a href="/post">Tin đã đăng</a></li>
-                            <li><a href="/order/my_order">Order cua ban</a></li>
+                            <li><a th:href="@{/user/__${#request.userPrincipal.getName()}__}">Thông tin tài
+                                khoản</a></li>
+                            <li><a class="dropdown-item" href="/post">Tin đã đăng</a></li>
+                            <li><a class="dropdown-item" href="/order/my_order">Order cua ban</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="/logout">Đăng xuất</a></li>
-                            <li><a href="#">Đổi mật khẩu</a></li>
-                            <li><a href="#">Cập nhập hồ sơ</a></li>
+                            <li><a class="dropdown-item" href="/logout">Đăng xuất</a></li>
+                            <li><a class="dropdown-item" href="#">Đổi mật khẩu</a></li>
+                            <li><a class="dropdown-item" href="#">Cập nhập hồ sơ</a></li>
                         </ul>
                     </li>
-                    <li class="dropdown" th:if="${#request.userPrincipal} == null">
-                        <a href="#" class="dropdown-toggle" data-toggle="modal" data-target=".mode" role="button" aria-haspopup="true" aria-expanded="false">
+                    <li class="nav-item dropdown" th:if="${#request.userPrincipal} == null">
+                        <a href="#" class="dropdown-toggle" data-toggle="modal" data-target=".mode" role="button"
+                           aria-haspopup="true" aria-expanded="false">
                             <span class="glyphicon glyphicon-user"></span>
-                    Đăng nhập<span class="caret"></span></a>
+                            Đăng nhập<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">Quên mật khẩu</a></li>
                             <li><a href="/register">Đăng kí thành viên</a></li>
                             <li role="separator" class="divider"></li>
                         </ul>
                     </li>
-                    <li></li>
                     <li th:if="${#request.userPrincipal}">
                         <a type="button" class="btn btn-warning" th:href="@{/post/add-post-rent}">
                             ĐĂNG TIN
                         </a>
                     </li>
-                    <li th:if="${#request.userPrincipal} == null" >
+                    <li th:if="${#request.userPrincipal} == null">
                         <button class="btn btn-warning" data-toggle="modal" data-target=".mode">ĐĂNG TIN</button>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
-    </div>
 </header>
 </body>
 </html>
