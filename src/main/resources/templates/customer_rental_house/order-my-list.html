@@ -29,7 +29,7 @@
             <td>Status</td>
             <td>Huy Order</td>
         </tr>
-        <tr th:each="order: ${myOrders}" th:if="${order.user_id.username} == ${#request.userPrincipal.getName()}">
+        <tr th:each="order: ${myOrders}" >
             <td th:text="${order.id}"></td>
             <td><a th:href="@{/house/detail/__${order.rental_house_id.id}__}" th:text="${order.rental_house_id.title}"></a></td>
             <td th:text="${order.date_begin}"></td>
