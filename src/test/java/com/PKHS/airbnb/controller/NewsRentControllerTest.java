@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class NewsRentControllerTest {
     @Autowired
-    private NewsRentController newsRentController;
+    private CustomerRentalHouseController newsRentController;
 
     @Autowired
     private MockMvc mockMvc;

@@ -2,11 +2,9 @@ package com.PKHS.airbnb.controller;
 
 import com.PKHS.airbnb.model.User;
 
-<<<<<<< Updated upstream
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-=======
 import com.PKHS.airbnb.service.UserService;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +14,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
->>>>>>> Stashed changes
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -36,13 +33,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class LoginControllerTest {
 
     private static User user;
-    private static Long id;
+    private static Integer id;
     private static String password = "123456";
     private static String username = "admin";
 
     static {
-        id = 1l;
-        user = new User(username, password);
+        id = 1;
+        user = new User();
     }
 
     @InjectMocks

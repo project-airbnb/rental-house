@@ -19,6 +19,7 @@
     <h2 th:text="${message}"></h2>
 </th:block>
 <div class="container">
+    <div class="row">
     <form th:action="@{/user/create}" th:object="${user}" method="post">
         <table class="table">
             <tr>
@@ -67,6 +68,7 @@
         </table>
     </form>
     <a th:href="@{/}">Back to Home</a>
+    </div>
 </div>
 <div th:replace="fragments/footer :: footer"></div>
 </body>

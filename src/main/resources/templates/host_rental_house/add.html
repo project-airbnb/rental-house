@@ -33,6 +33,8 @@
     <h2 style="color: #b20c0c; font-weight: bold; text-align: center">Post Rent House</h2>
     <form method="post" th:action="@{/post/add-post-rent-new}" enctype="multipart/form-data" th:object="${post}"
           onsubmit="getId();">
+
+        <div class="row">
         <div class="col-md-8">
             <input type="hidden" th:field="*{user}" id="user_id">
             <input type="hidden" th:field="*{status}" value="true">
@@ -96,6 +98,7 @@
         <div class="form-group">
             <input class="form-control btn btn-info" type="submit" value="Post News">
         </div>
+    </div>
     </form>
 </div>
 <div th:replace="fragments/footer :: footer"></div>

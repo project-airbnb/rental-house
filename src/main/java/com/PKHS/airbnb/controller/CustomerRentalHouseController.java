@@ -73,6 +73,11 @@ public class CustomerRentalHouseController extends GetIdUserController{
         return "redirect:/house/detail/{id}";
     }
 
+    @GetMapping("/house-{house_id}/{id}")
+    public String deleteComment(@PathVariable("id") int id) {
+        this.commentService.delete(id);
+        return "redirect:/house/detail/{house_id}";
+    }
 
     @GetMapping("/user/admin/manager-order-list")
     public String order_list(Model model) {

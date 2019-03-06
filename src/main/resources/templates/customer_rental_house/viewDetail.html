@@ -212,7 +212,7 @@
     <hr>
     <div class="container">
         <div class="col-lg-9 col-sm-6 text-center" th:if="${#request.userPrincipal}">
-            <h4>Comment</h4>
+            <h2>Bình luận</h2>
             <form th:action="@{/house/__${house.id}__/comment}" method="post" role="form" th:object="${cm}">
                 <div class="form-group">
                     <textarea th:field="*{body}" rows="5" class="form-control input-sm chat-input"
@@ -221,19 +221,25 @@
                 <input type="hidden" th:field="*{rentalHouse}">
                 <div class="input-group">
                     <button type="submit" class="btn btn-primary btn-lg"><span
-                            class="glyphicon glyphicon-comment"></span> Comment
+                            class="glyphicon glyphicon-comment"></span> Bình luận
                     </button>
                     </span>
                 </div>
             </form>
         </div>
-        <div class="col-md-6">
-            <h2>Comments:</h2>
+        <div class="col-md-9">
+            <h4>Tất cả bình luận:</h4>
             <!--Comments-->
-            <div class="well" th:each="comment: ${comments}" th:if="${house.id} == ${comment.rentalHouse.id}">
+            <div class="card card-body bg-light" th:each="comment: ${comments}"
+                 th:if="${house.id} == ${comment.rentalHouse.id}">
                 <a th:if="${comment.user.username}" th:href="@{/user/__${comment.user.username}__}"
                    th:text="${comment.user.username}"></a>
                 <p th:text="${comment.body}"></p>
+                <th:block th:if="${#request.userPrincipal} != null">
+                    <a th:if="${comment.user.username} == ${#request.userPrincipal.getName()}"
+                       th:href="@{/__${'house-' + house.id}__/__${comment.id}__}"
+                       onclick="return confirm('Xóa bình luận')">Xóa</a>
+                </th:block>
             </div>
         </div>
     </div>

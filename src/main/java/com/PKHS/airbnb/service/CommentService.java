@@ -9,4 +9,6 @@ public interface CommentService {
     Comment findById(Integer id);
 
     Comment save(Comment comment);
+
+    void delete(Integer id);
 }
